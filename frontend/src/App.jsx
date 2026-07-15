@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import Support from './pages/Support';
 import Dashboard from './pages/Dashboard';
+import Learn from './pages/Learn';
 import NotFound from './pages/NotFound';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -29,6 +30,7 @@ export default function App() {
 
           {/* Authenticated users */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/learn" element={<ProtectedRoute><Learn /></ProtectedRoute>} />
 
           {/* Hidden admin panel — no links anywhere in the UI */}
           <Route path="/admin" element={<AdminLogin />} />

@@ -1,0 +1,3433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PolskiPath — a complete offline Polish A1 course: 12 weeks, vocabulary, grammar, dialogues, quizzes, flashcards and a certificate.">
+  <title>PolskiPath — Polish A1 in 12 Weeks</title>
+  <style>
+/* ============================================================
+   style.css — Polish A1 · Duolingo energy × Apple glass × Notion calm
+   Signature: Polish-crimson "press" buttons + glass panels
+   ============================================================ */
+
+/* ---------- Tokens ---------- */
+:root {
+  --red: #d7263d;          /* Polish crimson — primary */
+  --red-dark: #a51c2f;     /* press-shadow of primary */
+  --red-soft: #fdecee;
+  --green: #23b26d;        /* success */
+  --green-dark: #178a52;
+  --green-soft: #e6f7ef;
+  --gold: #f2b705;         /* XP */
+  --gold-dark: #c4940a;
+  --blue: #2f7fd1;
+  --blue-soft: #e8f1fb;
+
+  --bg: #f4f5f8;
+  --bg-elevated: #ffffff;
+  --glass: rgba(255, 255, 255, 0.66);
+  --glass-strong: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --ink: #17202b;
+  --ink-2: #4a5568;
+  --ink-3: #8a94a6;
+  --line: #e4e7ee;
+  --shadow: 0 10px 30px rgba(23, 32, 43, 0.08);
+  --shadow-lg: 0 24px 60px rgba(23, 32, 43, 0.14);
+  --radius: 18px;
+  --radius-sm: 12px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --sidebar-w: 280px;
+}
+
+[data-theme="dark"] {
+  --bg: #0e1217;
+  --bg-elevated: #171d25;
+  --glass: rgba(23, 29, 37, 0.62);
+  --glass-strong: rgba(23, 29, 37, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --ink: #eef1f6;
+  --ink-2: #b7c0cd;
+  --ink-3: #75808f;
+  --line: #262e39;
+  --red-soft: rgba(215, 38, 61, 0.16);
+  --green-soft: rgba(35, 178, 109, 0.15);
+  --blue-soft: rgba(47, 127, 209, 0.15);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Base ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.35s ease, color 0.35s ease;
+  min-height: 100vh;
+}
+
+/* ambient background blobs */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+body::before {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(215, 38, 61, 0.25), transparent 70%);
+  top: -140px; right: -120px;
+}
+body::after {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(35, 178, 109, 0.2), transparent 70%);
+  bottom: -140px; left: -120px;
+}
+
+img { max-width: 100%; }
+button { font-family: inherit; cursor: pointer; }
+input, select { font-family: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Buttons (Duolingo press effect) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 22px;
+  color: #fff;
+  background: var(--red);
+  box-shadow: 0 4px 0 var(--red-dark);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.2s ease, background 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--red-dark); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-primary { background: var(--red); box-shadow: 0 4px 0 var(--red-dark); }
+.btn-green { background: var(--green); box-shadow: 0 4px 0 var(--green-dark); }
+.btn-green:active { box-shadow: 0 0 0 var(--green-dark); }
+.btn-gold { background: var(--gold); color: #4d3a00; box-shadow: 0 4px 0 var(--gold-dark); }
+.btn-gold:active { box-shadow: 0 0 0 var(--gold-dark); }
+.btn-lg { font-size: 1.1rem; padding: 16px 32px; border-radius: 16px; }
+.btn-sm { font-size: 0.82rem; padding: 8px 14px; border-radius: 10px; }
+
+.btn-ghost {
+  background: var(--bg-elevated);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--line);
+  border: 1px solid var(--line);
+}
+.btn-ghost:active { box-shadow: 0 0 0 var(--line); }
+
+/* ---------- Glass ---------- */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+}
+
+.card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+/* ============================================================
+   LANDING PAGE
+   ============================================================ */
+#landing { min-height: 100vh; display: flex; flex-direction: column; }
+#landing.hidden { display: none; }
+
+.landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 5vw;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+.brand-flag {
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+  flex: none;
+}
+.brand-flag span:first-child { background: #fff; }
+.brand-flag span:last-child { background: var(--red); }
+
+.landing-nav-actions { display: flex; gap: 10px; align-items: center; }
+
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 72px 5vw 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  background: var(--red-soft);
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin-bottom: 22px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  max-width: 800px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero h1 .accent {
+  background: linear-gradient(120deg, var(--red), #ff5d73);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  margin-top: 20px;
+  max-width: 560px;
+  font-size: 1.12rem;
+  color: var(--ink-2);
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.hero-cta {
+  margin-top: 34px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+.hero-meta {
+  margin-top: 26px;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: var(--ink-3);
+  font-size: 0.88rem;
+  font-weight: 600;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* floating phrase chips — the signature */
+.float-chip {
+  position: absolute;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+  animation: bob 6s ease-in-out infinite;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.float-chip small { display: block; font-weight: 500; font-size: 0.68rem; color: var(--ink-3); }
+.chip-1 { top: 16%; left: 7%; animation-delay: 0s; rotate: -5deg; }
+.chip-2 { top: 24%; right: 8%; animation-delay: 1.4s; rotate: 4deg; }
+.chip-3 { bottom: 22%; left: 11%; animation-delay: 2.6s; rotate: 3deg; }
+.chip-4 { bottom: 16%; right: 12%; animation-delay: 3.4s; rotate: -4deg; }
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -16px; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* features */
+.features {
+  padding: 40px 5vw 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+.feature {
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.feature:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.feature .f-icon {
+  width: 46px; height: 46px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  border-radius: 14px;
+  background: var(--red-soft);
+  margin-bottom: 14px;
+}
+.feature h3 { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+.feature p { font-size: 0.88rem; color: var(--ink-2); margin-top: 6px; }
+
+.landing-footer {
+  text-align: center;
+  padding: 26px;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#app { display: none; min-height: 100vh; }
+#app.active { display: block; }
+
+.app-layout { display: flex; min-height: 100vh; }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  width: var(--sidebar-w);
+  flex: none;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px 16px 28px;
+  border-right: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 60;
+  scrollbar-width: thin;
+}
+
+.sidebar .brand { padding: 6px 8px 16px; }
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: left;
+  width: 100%;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.side-link:hover { background: var(--red-soft); color: var(--ink); }
+.side-link.active { background: var(--red); color: #fff; box-shadow: 0 4px 12px rgba(215,38,61,0.35); }
+.side-link .emoji { font-size: 1.05rem; width: 22px; text-align: center; }
+
+.side-heading {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 16px 12px 6px;
+}
+
+.week-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  color: var(--ink-2);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+.week-link:hover { background: var(--red-soft); color: var(--ink); }
+.week-link.active { background: var(--bg-elevated); color: var(--ink); box-shadow: var(--shadow); }
+
+.week-num {
+  width: 28px; height: 28px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: 9px;
+  background: var(--line);
+  color: var(--ink-2);
+}
+.week-link.done .week-num { background: var(--green); color: #fff; }
+.week-link.active .week-num { background: var(--red); color: #fff; }
+.week-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.week-check { font-size: 0.8rem; color: var(--green); }
+
+.side-progress-wrap { margin-top: auto; padding: 14px 12px 0; }
+.side-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+.side-progress-bar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.side-progress-bar span { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 99px; transition: width 0.6s ease; }
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 20, 0.45);
+  z-index: 58;
+}
+
+/* ---------- Topbar ---------- */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 26px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--ink);
+  padding: 6px;
+}
+
+.search-wrap { position: relative; flex: 1; max-width: 420px; }
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.search-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
+.search-icon {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-3);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+.search-kbd {
+  position: absolute;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 6px;
+  background: var(--bg);
+}
+
+.topbar-stats { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.stat-pill.xp { color: var(--gold-dark); }
+[data-theme="dark"] .stat-pill.xp { color: var(--gold); }
+.stat-pill.streak { color: var(--red); }
+.stat-pill.pop { animation: pop 0.45s ease; }
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.22); }
+  100% { transform: scale(1); }
+}
+
+.icon-btn {
+  width: 38px; height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font-size: 1.05rem;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.icon-btn:hover { transform: translateY(-2px); }
+
+/* ---------- Global progress bar ---------- */
+.global-progress {
+  height: 6px;
+  background: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.global-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  border-radius: 0 99px 99px 0;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Content ---------- */
+.content { padding: 30px 4vw 90px; max-width: 980px; width: 100%; margin: 0 auto; }
+
+.fade-in { animation: fadeUp 0.45s ease both; }
+
+.view-title { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; }
+.view-sub { color: var(--ink-2); margin-top: 6px; }
+
+/* dashboard */
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.dash-stat {
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.dash-stat .num { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.02em; }
+.dash-stat .lbl { font-size: 0.8rem; font-weight: 700; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.week-card {
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: none;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+.week-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.week-card .wk { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; color: var(--red); text-transform: uppercase; }
+.week-card h3 { font-size: 1.02rem; font-weight: 700; margin: 6px 0 2px; letter-spacing: -0.01em; }
+.week-card p { font-size: 0.82rem; color: var(--ink-2); }
+.week-card .wk-progress { height: 5px; background: var(--line); border-radius: 99px; margin-top: 14px; overflow: hidden; }
+.week-card .wk-progress span { display: block; height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
+.week-card .wk-done-badge { position: absolute; top: 14px; right: 14px; color: var(--green); font-size: 1.1rem; }
+
+/* ---------- Week view ---------- */
+.week-header { margin-bottom: 18px; }
+.week-eyebrow { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+.week-goal {
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--green-soft);
+  border-left: 4px solid var(--green);
+  font-size: 0.92rem;
+}
+.week-goal b { color: var(--green-dark); }
+[data-theme="dark"] .week-goal b { color: var(--green); }
+
+.section-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px;
+  border-radius: 16px;
+  margin: 20px 0;
+  scrollbar-width: none;
+}
+.section-tabs::-webkit-scrollbar { display: none; }
+.tab {
+  border: none;
+  background: transparent;
+  color: var(--ink-2);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 9px 14px;
+  border-radius: 11px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.tab:hover { background: var(--red-soft); color: var(--ink); }
+.tab.active { background: var(--red); color: #fff; box-shadow: 0 4px 12px rgba(215,38,61,0.35); }
+.tab .tick { color: var(--green); font-size: 0.75rem; }
+.tab.active .tick { color: #fff; }
+
+.section-body { min-height: 280px; }
+
+.intro-card p { color: var(--ink-2); font-size: 1rem; }
+.intro-card .intro-icon { font-size: 2.4rem; margin-bottom: 12px; }
+
+/* vocabulary table */
+.vocab-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.vocab-hint { font-size: 0.85rem; color: var(--ink-3); }
+
+.vocab-table-wrap {
+  border-radius: var(--radius);
+  overflow: auto;
+  box-shadow: var(--shadow);
+}
+table.vocab-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.vocab-table th {
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--glass-strong);
+  backdrop-filter: blur(10px);
+}
+.vocab-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+.vocab-table tr:last-child td { border-bottom: none; }
+.vocab-table tbody tr { transition: background 0.15s ease; }
+.vocab-table tbody tr:hover { background: var(--red-soft); }
+.vocab-pl { font-weight: 700; letter-spacing: -0.01em; }
+.vocab-pron { color: var(--blue); font-size: 0.82rem; font-style: italic; }
+.vocab-tip { color: var(--ink-2); font-size: 0.84rem; }
+
+.tts-btn {
+  border: none;
+  background: var(--blue-soft);
+  color: var(--blue);
+  width: 30px; height: 30px;
+  border-radius: 9px;
+  font-size: 0.85rem;
+  flex: none;
+  transition: transform 0.15s ease, background 0.2s ease;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+.tts-btn:hover { transform: scale(1.12); }
+.tts-btn.speaking { background: var(--blue); color: #fff; animation: pop 0.4s ease; }
+
+/* grammar */
+.grammar-card h3 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+.grammar-card p { margin: 10px 0; color: var(--ink-2); }
+.grammar-card p b, .grammar-card p i { color: var(--ink); }
+.grammar-card .note {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--blue-soft);
+  border-left: 4px solid var(--blue);
+  font-size: 0.88rem;
+}
+.combo-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.combo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--red-soft);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.combo span {
+  background: var(--red);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.mini-table { overflow-x: auto; margin: 14px 0; border-radius: var(--radius-sm); border: 1px solid var(--line); }
+.mini-table table { width: 100%; border-collapse: collapse; }
+.mini-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.mini-table td { padding: 9px 14px; font-size: 0.88rem; border-bottom: 1px solid var(--line); }
+.mini-table tr:last-child td { border-bottom: none; }
+
+/* self-assessment checklist (week 12) */
+.checklist { margin: 16px 0; display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  font-size: 0.9rem;
+}
+.check-item:hover { border-color: var(--green); }
+.check-item input { margin-top: 3px; accent-color: var(--green); width: 17px; height: 17px; flex: none; cursor: pointer; }
+.check-item.checked { background: var(--green-soft); border-color: var(--green); }
+.check-item.checked span { text-decoration: line-through; color: var(--ink-3); }
+
+/* dialogue */
+.dialogue-hint { font-size: 0.85rem; color: var(--ink-3); margin-bottom: 14px; }
+.dialogue-toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.dialogue { display: flex; flex-direction: column; gap: 12px; }
+.bubble-row { display: flex; }
+.bubble-row.right { justify-content: flex-end; }
+.bubble {
+  max-width: 78%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+  animation: fadeUp 0.4s ease both;
+}
+.bubble-row.left .bubble { border-bottom-left-radius: 6px; background: var(--bg-elevated); }
+.bubble-row.right .bubble { border-bottom-right-radius: 6px; background: var(--red-soft); }
+.bubble .pl-line { font-weight: 700; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.bubble .en-line { font-size: 0.83rem; color: var(--ink-2); margin-top: 4px; transition: opacity 0.25s ease, filter 0.25s ease; }
+.dialogue.hide-en .en-line { filter: blur(6px); opacity: 0.55; }
+.dialogue.hide-en .bubble:hover .en-line,
+.dialogue.hide-en .bubble:focus-within .en-line { filter: none; opacity: 1; }
+
+/* practice */
+.exercise { margin-bottom: 18px; }
+.exercise-q { font-weight: 700; font-size: 1rem; margin-bottom: 12px; }
+.exercise-count { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); margin-bottom: 6px; }
+
+.quiz-options, .exercise-options { display: grid; gap: 10px; }
+.quiz-option, .exercise-option {
+  text-align: left;
+  padding: 13px 18px;
+  border-radius: 13px;
+  border: 2px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font-size: 0.93rem;
+  font-weight: 600;
+  transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+.quiz-option:hover:not(:disabled), .exercise-option:hover:not(:disabled) { border-color: var(--red); transform: translateX(4px); }
+.quiz-option.correct, .exercise-option.correct { border-color: var(--green); background: var(--green-soft); }
+.quiz-option.wrong, .exercise-option.wrong { border-color: var(--red); background: var(--red-soft); animation: shake 0.4s ease; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.type-answer-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.type-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 12px 16px;
+  border-radius: 13px;
+  border: 2px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.type-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
+.type-input.ok { border-color: var(--green); background: var(--green-soft); }
+.type-input.bad { border-color: var(--red); background: var(--red-soft); animation: shake 0.4s ease; }
+
+.pl-keys { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pl-key {
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  border-radius: 9px;
+  padding: 6px 11px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.pl-key:hover { background: var(--red-soft); transform: translateY(-2px); }
+
+.feedback { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; margin-top: 12px; animation: fadeUp 0.3s ease both; }
+.feedback.ok { background: var(--green-soft); border-left: 4px solid var(--green); }
+.feedback.bad { background: var(--red-soft); border-left: 4px solid var(--red); }
+
+.practice-score { margin-top: 8px; font-weight: 700; color: var(--ink-2); font-size: 0.9rem; }
+
+/* quiz */
+.quiz-intro, .quiz-result { text-align: center; }
+.quiz-intro-icon, .quiz-result-icon { font-size: 3rem; margin-bottom: 10px; animation: bob 4s ease-in-out infinite; }
+.quiz-intro h3, .quiz-result h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+.quiz-intro p { color: var(--ink-2); margin: 10px auto 20px; max-width: 460px; }
+.quiz-best { font-size: 0.9rem; }
+.pass-chip { color: var(--green); font-weight: 800; }
+
+.quiz-top { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; color: var(--ink-3); margin-bottom: 10px; }
+.quiz-count { color: var(--ink-3); }
+.quiz-score-live { color: var(--green); }
+.quiz-progress { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin-bottom: 22px; }
+.quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 99px; transition: width 0.4s ease; }
+.quiz-question { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 18px; }
+.quiz-actions { margin-top: 18px; display: flex; justify-content: flex-end; }
+.quiz-score-big { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin: 8px 0; }
+.quiz-passed .quiz-score-big { color: var(--green); }
+.quiz-failed .quiz-score-big { color: var(--red); }
+.quiz-result p { color: var(--ink-2); max-width: 480px; margin: 0 auto 20px; }
+.quiz-result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* summary */
+.summary-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.summary-list li {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  font-size: 0.92rem;
+  box-shadow: var(--shadow);
+}
+.summary-list li::before { content: "✔"; color: var(--green); font-weight: 800; flex: none; }
+
+/* section footer nav */
+.section-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+.section-nav .spacer { flex: 1; }
+.kbd-hint { font-size: 0.75rem; color: var(--ink-3); text-align: center; width: 100%; margin-top: 14px; }
+.kbd-hint kbd {
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  background: var(--bg-elevated);
+}
+
+/* ---------- Guide view ---------- */
+.guide-grid { display: grid; gap: 16px; margin-top: 20px; }
+.guide-grid h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.01em; }
+.rhythm-row { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.rhythm-row:last-child { border-bottom: none; }
+.rhythm-day { font-weight: 800; color: var(--red); flex: none; width: 92px; }
+.rhythm-task { color: var(--ink-2); }
+.pron-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.pron-list li { padding-left: 26px; position: relative; font-size: 0.92rem; color: var(--ink-2); }
+.pron-list li b, .pron-list li i { color: var(--ink); }
+.pron-list li::before { content: "🔤"; position: absolute; left: 0; font-size: 0.8rem; }
+.teacher-note {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--gold);
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  border-left: 4px solid var(--gold);
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+/* ---------- Flashcards modal ---------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 20, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-backdrop.open { display: flex; animation: fadeUp 0.25s ease both; }
+.modal {
+  width: 100%;
+  max-width: 560px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  padding: 26px;
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-head h3 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+.modal-close {
+  border: none;
+  background: var(--bg-elevated);
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.flash-week-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--bg-elevated);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.flashcard-stage { perspective: 1200px; margin-bottom: 16px; }
+.flashcard {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  background: none;
+  display: block;
+  padding: 0;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flash-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.flash-front { background: linear-gradient(140deg, var(--red), #ff5d73); color: #fff; }
+.flash-front .flash-word { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.02em; }
+.flash-front .flash-sub { font-size: 0.82rem; opacity: 0.85; font-weight: 600; }
+.flash-back { background: var(--bg-elevated); transform: rotateY(180deg); color: var(--ink); }
+.flash-back .flash-word { font-size: 1.3rem; font-weight: 800; }
+.flash-back .flash-pron { color: var(--blue); font-style: italic; font-size: 0.9rem; }
+.flash-back .flash-tip { font-size: 0.82rem; color: var(--ink-2); max-height: 96px; overflow-y: auto; }
+
+.flash-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.flash-counter { text-align: center; font-size: 0.82rem; font-weight: 700; color: var(--ink-3); margin-top: 12px; }
+
+/* ---------- Search results ---------- */
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  background: var(--glass-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  max-height: 420px;
+  overflow-y: auto;
+  display: none;
+  z-index: 90;
+  padding: 8px;
+}
+.search-results.open { display: block; animation: fadeUp 0.2s ease both; }
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  border-radius: 11px;
+  color: var(--ink);
+  transition: background 0.15s ease;
+}
+.search-result:hover { background: var(--red-soft); }
+.search-result .sr-week {
+  flex: none;
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: var(--red);
+  color: #fff;
+  border-radius: 7px;
+  padding: 3px 8px;
+}
+.search-result .sr-text { flex: 1; min-width: 0; }
+.search-result .sr-pl { font-weight: 700; font-size: 0.9rem; }
+.search-result .sr-en { font-size: 0.8rem; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-empty { padding: 18px; text-align: center; color: var(--ink-3); font-size: 0.88rem; }
+
+/* ---------- Certificate ---------- */
+.certificate-wrap { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.certificate {
+  width: 100%;
+  max-width: 760px;
+  border-radius: 26px;
+  padding: 52px 46px;
+  text-align: center;
+  background: var(--bg-elevated);
+  border: 3px solid var(--gold);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+.certificate::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1.5px dashed var(--gold);
+  border-radius: 18px;
+  pointer-events: none;
+}
+.cert-flag { width: 54px; height: 38px; margin: 0 auto 18px; border-radius: 8px; overflow: hidden; display: grid; grid-template-rows: 1fr 1fr; box-shadow: var(--shadow); }
+.cert-flag span:first-child { background: #fff; border: 1px solid var(--line); border-bottom: none; }
+.cert-flag span:last-child { background: var(--red); }
+.cert-title { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); }
+[data-theme="dark"] .cert-title { color: var(--gold); }
+.cert-course { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; margin: 8px 0 22px; }
+.cert-presented { font-size: 0.85rem; color: var(--ink-3); }
+.cert-name {
+  font-size: 2.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 10px 0;
+  border-bottom: 2px solid var(--line);
+  display: inline-block;
+  padding: 0 26px 6px;
+  min-width: 240px;
+}
+.cert-body { max-width: 480px; margin: 14px auto 26px; font-size: 0.92rem; color: var(--ink-2); }
+.cert-meta { display: flex; justify-content: space-around; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+.cert-meta div { font-size: 0.8rem; color: var(--ink-3); }
+.cert-meta b { display: block; font-size: 1.05rem; color: var(--ink); }
+.cert-locked { text-align: center; padding: 40px 24px; }
+.cert-locked .lock-icon { font-size: 3rem; margin-bottom: 12px; }
+.cert-locked p { color: var(--ink-2); max-width: 460px; margin: 8px auto 18px; }
+.cert-progress-list { max-width: 420px; margin: 0 auto 20px; display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.cert-progress-item { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 8px 14px; border-radius: 10px; background: var(--bg-elevated); border: 1px solid var(--line); }
+.cert-progress-item .ok { color: var(--green); font-weight: 800; }
+.cert-progress-item .todo { color: var(--ink-3); }
+.cert-name-input {
+  padding: 12px 18px;
+  border-radius: 13px;
+  border: 2px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  width: min(360px, 100%);
+}
+.cert-name-input:focus { outline: none; border-color: var(--gold); }
+.cert-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; align-items: center; }
+.next-steps { max-width: 760px; width: 100%; }
+.next-steps h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
+.next-steps ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.next-steps li { padding-left: 24px; position: relative; font-size: 0.9rem; color: var(--ink-2); }
+.next-steps li b, .next-steps li i { color: var(--ink); }
+.next-steps li::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+
+/* confetti */
+.confetti {
+  position: fixed;
+  top: -14px;
+  width: 10px;
+  height: 16px;
+  z-index: 200;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  to { transform: translateY(105vh) rotate(720deg); opacity: 0.6; }
+}
+
+/* ---------- Toast ---------- */
+#toast {
+  position: fixed;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%) translateY(90px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  max-width: 90vw;
+  text-align: center;
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ---------- Keyboard shortcuts modal ---------- */
+.shortcut-list { display: flex; flex-direction: column; gap: 8px; }
+.shortcut-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 14px;
+  border-radius: 11px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+.shortcut-row kbd {
+  border: 1px solid var(--line);
+  border-bottom-width: 3px;
+  border-radius: 7px;
+  padding: 3px 10px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  background: var(--bg);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 920px) {
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    transform: translateX(-105%);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    background: var(--glass-strong);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-backdrop.open { display: block; }
+  .hamburger { display: block; }
+  .content { padding: 22px 5vw 80px; }
+  .search-kbd { display: none; }
+}
+
+@media (max-width: 640px) {
+  .float-chip { display: none; }
+  .card { padding: 20px; }
+  .topbar { padding: 10px 14px; gap: 8px; }
+  .stat-pill { font-size: 0.75rem; padding: 6px 10px; }
+  .view-title { font-size: 1.5rem; }
+  .bubble { max-width: 92%; }
+  .certificate { padding: 38px 20px; }
+  .cert-name { font-size: 1.5rem; min-width: 0; }
+  .section-nav .btn { flex: 1; }
+  .hero { padding-top: 48px; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Print (certificate) ---------- */
+@media print {
+  body { background: #fff !important; }
+  body::before, body::after { display: none; }
+  .sidebar, .topbar, .global-progress, .cert-actions, .next-steps,
+  #toast, .modal-backdrop, .sidebar-backdrop, .cert-name-input-row { display: none !important; }
+  #app, #app.active { display: block; }
+  .main { display: block; }
+  .content { max-width: none; padding: 0; }
+  .certificate {
+    box-shadow: none;
+    border-color: #c4940a;
+    max-width: none;
+    page-break-inside: avoid;
+  }
+}
+
+</style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='50' y='0' fill='%23ffffff' rx='12'/><rect width='100' height='50' y='50' fill='%23d7263d' rx='12'/></svg>">
+</head>
+<body>
+
+  <!-- ============================================================
+       LANDING PAGE
+       ============================================================ -->
+  <div id="landing">
+    <nav class="landing-nav glass">
+      <div class="brand">
+        <div class="brand-flag" aria-hidden="true"><span></span><span></span></div>
+        PolskiPath
+      </div>
+      <div class="landing-nav-actions">
+        <button class="icon-btn" id="landingThemeBtn" title="Toggle dark/light mode" aria-label="Toggle dark or light mode">🌙</button>
+        <button class="btn btn-primary btn-sm" onclick="enterApp()">Open course</button>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="float-chip glass chip-1">Dzień dobry! <small>Good day!</small></div>
+      <div class="float-chip glass chip-2">Dziękuję <small>Thank you</small></div>
+      <div class="float-chip glass chip-3">Miło mi! <small>Nice to meet you!</small></div>
+      <div class="float-chip glass chip-4">Powodzenia! <small>Good luck!</small></div>
+
+      <span class="hero-eyebrow">🇵🇱 A1 · 12 weeks · 30 minutes a day</span>
+      <h1>Learn Polish from zero.<br><span class="accent">Prosto i pięknie.</span></h1>
+      <p class="hero-sub">A complete, offline A1 course built for an English speaker starting from scratch — every phrase, dialogue and grammar rule of a full 12-week curriculum, with quizzes, flashcards, XP and a certificate at the end.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="startLearning()">🚀 Start learning</button>
+        <button class="btn btn-ghost btn-lg" onclick="enterApp('guide')">How it works</button>
+      </div>
+      <div class="hero-meta">
+        <span>📖 150+ phrases</span>
+        <span>💬 12 dialogues</span>
+        <span>🏆 12 quizzes</span>
+        <span>🔊 Speech built in</span>
+        <span>📴 100% offline</span>
+      </div>
+    </header>
+
+    <section class="features">
+      <div class="feature glass">
+        <div class="f-icon">🗓️</div>
+        <h3>12 structured weeks</h3>
+        <p>Greetings to past tense — every week has vocabulary, grammar, a dialogue, practice, a quiz and a summary.</p>
+      </div>
+      <div class="feature glass">
+        <div class="f-icon">🔊</div>
+        <h3>Hear every phrase</h3>
+        <p>Tap the speaker on any word or dialogue line and your browser pronounces it in Polish — no internet needed.</p>
+      </div>
+      <div class="feature glass">
+        <div class="f-icon">🃏</div>
+        <h3>Flashcards & search</h3>
+        <p>Flip through any week's vocabulary as flashcards, or search all 150+ phrases instantly from anywhere.</p>
+      </div>
+      <div class="feature glass">
+        <div class="f-icon">⚡</div>
+        <h3>XP & daily streak</h3>
+        <p>Earn XP for every section and correct answer, keep your streak alive, and watch your progress bar climb.</p>
+      </div>
+      <div class="feature glass">
+        <div class="f-icon">💾</div>
+        <h3>Progress saved locally</h3>
+        <p>Everything is stored in your browser. Close the tab, come back next week — your progress is waiting.</p>
+      </div>
+      <div class="feature glass">
+        <div class="f-icon">🎓</div>
+        <h3>Certificate at the end</h3>
+        <p>Pass all 12 weekly quizzes and print your personalised A1 completion certificate. Wszystkiego najlepszego!</p>
+      </div>
+    </section>
+
+    <footer class="landing-footer">
+      PolskiPath · Polish A1 in 12 weeks · works completely offline · Powodzenia! 🇵🇱
+    </footer>
+  </div>
+
+  <!-- ============================================================
+       APP
+       ============================================================ -->
+  <div id="app">
+    <div class="app-layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar glass" id="sidebar" aria-label="Course navigation">
+        <div class="brand">
+          <div class="brand-flag" aria-hidden="true"><span></span><span></span></div>
+          PolskiPath
+        </div>
+
+        <button class="side-link" data-view="dashboard" onclick="showDashboard()"><span class="emoji">🏠</span> Dashboard</button>
+        <button class="side-link" data-view="guide" onclick="showGuide()"><span class="emoji">🧭</span> How to study</button>
+        <button class="side-link" onclick="openFlashcards()"><span class="emoji">🃏</span> Flashcards</button>
+        <button class="side-link" data-view="certificate" onclick="showCertificate()"><span class="emoji">🎓</span> Certificate</button>
+
+        <div class="side-heading">12 weeks</div>
+        <div id="weekLinks"></div>
+
+        <div class="side-progress-wrap">
+          <div class="side-progress-label"><span>Course progress</span><span id="sideProgressPct">0%</span></div>
+          <div class="side-progress-bar"><span id="sideProgressFill"></span></div>
+        </div>
+      </aside>
+      <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar(false)"></div>
+
+      <!-- Main -->
+      <div class="main">
+        <div class="topbar glass">
+          <button class="hamburger" onclick="toggleSidebar()" aria-label="Open navigation menu">☰</button>
+
+          <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search vocabulary… (e.g. dziękuję, coffee)" autocomplete="off" aria-label="Search vocabulary">
+            <span class="search-kbd">/</span>
+            <div class="search-results" id="searchResults" role="listbox"></div>
+          </div>
+
+          <div class="topbar-stats">
+            <span class="stat-pill xp" id="xpPill" title="Experience points">⚡ <span id="xpValue">0</span> XP</span>
+            <span class="stat-pill streak" id="streakPill" title="Daily streak">🔥 <span id="streakValue">0</span></span>
+            <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light mode (D)" aria-label="Toggle dark or light mode">🌙</button>
+            <button class="icon-btn" onclick="openShortcuts()" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">⌨️</button>
+          </div>
+        </div>
+
+        <div class="global-progress" title="Overall course progress">
+          <div class="global-progress-fill" id="globalProgressFill"></div>
+        </div>
+
+        <main class="content" id="content"></main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODALS & TOAST
+       ============================================================ -->
+
+  <!-- Flashcards -->
+  <div class="modal-backdrop" id="flashModal" role="dialog" aria-modal="true" aria-label="Flashcards">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>🃏 Flashcards</h3>
+        <button class="modal-close" onclick="closeFlashcards()" aria-label="Close flashcards">✕</button>
+      </div>
+      <select class="flash-week-select" id="flashWeekSelect" onchange="loadFlashDeck()" aria-label="Choose flashcard deck"></select>
+      <div class="flashcard-stage">
+        <button class="flashcard" id="flashcard" onclick="flipFlashcard()" aria-label="Flashcard — click or press Space to flip">
+          <div class="flash-face flash-front" id="flashFront"></div>
+          <div class="flash-face flash-back" id="flashBack"></div>
+        </button>
+      </div>
+      <div class="flash-controls">
+        <button class="btn btn-ghost btn-sm" onclick="prevFlashcard()">← Previous</button>
+        <button class="btn btn-ghost btn-sm" onclick="speakCurrentFlash()">🔊 Listen</button>
+        <button class="btn btn-green btn-sm" onclick="nextFlashcard()">Next →</button>
+      </div>
+      <div class="flash-counter" id="flashCounter"></div>
+    </div>
+  </div>
+
+  <!-- Keyboard shortcuts -->
+  <div class="modal-backdrop" id="shortcutModal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>⌨️ Keyboard shortcuts</h3>
+        <button class="modal-close" onclick="closeShortcuts()" aria-label="Close shortcuts">✕</button>
+      </div>
+      <div class="shortcut-list">
+        <div class="shortcut-row"><span>Next section</span><kbd>→</kbd></div>
+        <div class="shortcut-row"><span>Previous section</span><kbd>←</kbd></div>
+        <div class="shortcut-row"><span>Next week</span><kbd>Shift + →</kbd></div>
+        <div class="shortcut-row"><span>Previous week</span><kbd>Shift + ←</kbd></div>
+        <div class="shortcut-row"><span>Search vocabulary</span><kbd>/</kbd></div>
+        <div class="shortcut-row"><span>Open flashcards</span><kbd>F</kbd></div>
+        <div class="shortcut-row"><span>Flip flashcard</span><kbd>Space</kbd></div>
+        <div class="shortcut-row"><span>Toggle dark / light mode</span><kbd>D</kbd></div>
+        <div class="shortcut-row"><span>Go to dashboard</span><kbd>H</kbd></div>
+        <div class="shortcut-row"><span>Show this panel</span><kbd>?</kbd></div>
+        <div class="shortcut-row"><span>Close panel / search</span><kbd>Esc</kbd></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+/* ============================================================
+   lessons.js — Complete Polish A1 curriculum data (12 weeks)
+   Source: "Polish A1 Curriculum — 12 Weeks, 30 Minutes a Day"
+   Every vocabulary row, grammar note, dialogue and review from
+   the curriculum is represented here, unabridged.
+   ============================================================ */
+
+const GUIDE = {
+  rhythm: [
+    { day: "Days 1–2", task: "Learn the week's new phrases and vocabulary (use the table)" },
+    { day: "Day 3", task: "Grammar focus (short and practical — no drills for their own sake)" },
+    { day: "Day 4", task: "Speaking aloud — read the dialogue, record yourself, compare" },
+    { day: "Day 5", task: "Writing — copy each phrase 3×, then write 3 original sentences" },
+    { day: "Day 6", task: "Review + self-quiz (cover the English column, translate from Polish; then reverse)" },
+    { day: "Day 7", task: "Rest, or 10 minutes of passive listening (Polish music, a children's cartoon, or a podcast like Real Polish or Polski Daily)" }
+  ],
+  pronunciation: [
+    "Stress in Polish almost always falls on the <b>second-to-last syllable</b> (shown in CAPS).",
+    "“sh” = English <i>sh</i>; “ch” = English <i>ch</i>; “zh” = the <i>s</i> in <i>pleasure</i>.",
+    "“w” in Polish sounds like English <b>v</b>; “ł” sounds like English <b>w</b>.",
+    "“y” (as a vowel) = the <i>i</i> in <i>bit</i>; “j” = English <i>y</i> in <i>yes</i>.",
+    "Nasal vowels: <b>ą</b> ≈ “own” (as in French <i>bon</i>), <b>ę</b> ≈ “en” (often softened to “eh” at word endings)."
+  ],
+  teacherNote: "Polish is highly systematic. Spelling is nearly 100% phonetic once you learn the letter combinations — far more regular than English. Treat Weeks 1–2 as “decoding instruction” for yourself.",
+  afterCourse: [
+    "<b>Consolidate with a structured course:</b> the <i>Krok po kroku</i> or <i>Polski jest cool</i> textbook series (both designed for foreigners at A1–A2) makes an ideal next step.",
+    "<b>Flashcards:</b> put every table in this curriculum into Anki or Quizlet — 10 minutes of spaced repetition daily protects everything you've built.",
+    "<b>Listening:</b> <i>Polski Daily</i> and <i>Real Polish</i> podcasts have slow, learner-paced episodes; Polish children's cartoons (<i>Bolek i Lolek</i>, <i>Reksio</i>) are nearly wordless-to-simple and culturally beloved.",
+    "<b>Speaking:</b> one 30-minute weekly session with a tutor on iTalki or Preply converts passive knowledge into active skill faster than anything else.",
+    "<b>Teacher's advantage:</b> you know how learning works — apply retrieval practice (Day 6 quizzes), spaced repetition, and low-stakes production. You're not just learning Polish; you're your own best student."
+  ]
+};
+
+const CURRICULUM = [
+  /* ================= WEEK 1 ================= */
+  {
+    week: 1,
+    title: "First Contact",
+    subtitle: "Greetings & Survival Phrases",
+    goal: "Greet people, be polite, and rescue yourself when you don't understand.",
+    intro: "Welcome to your first week of Polish! This week is about survival: greeting people the right way, being polite, and having an escape hatch ready when you don't understand. You'll also start decoding Polish spelling — which is far friendlier than it looks. Follow the daily rhythm: vocabulary on Days 1–2, grammar on Day 3, the dialogue aloud on Day 4, writing on Day 5, and the self-quiz on Day 6.",
+    vocab: [
+      { pl: "Dzień dobry", en: "Good morning / Good day", pron: "jen DOB-rih", tip: "The universal daytime greeting. Works until early evening, formal and informal. When in doubt, use this." },
+      { pl: "Dobry wieczór", en: "Good evening", pron: "DOB-rih VYEH-choor", tip: "Switch to this after roughly 6 p.m." },
+      { pl: "Cześć", en: "Hi / Bye (informal)", pron: "cheshch", tip: "Only with friends, children, or peers. Doubles as “bye.” Don't use with strangers or elders." },
+      { pl: "Do widzenia", en: "Goodbye (formal)", pron: "doh vee-DZEH-nya", tip: "The safe, polite goodbye in shops, offices, with strangers." },
+      { pl: "Dobranoc", en: "Good night", pron: "doh-BRAH-nots", tip: "Only when parting for the night — not a greeting." },
+      { pl: "Proszę", en: "Please / Here you are / You're welcome", pron: "PROH-sheh", tip: "The Swiss Army knife of Polish politeness. Say it when handing something over, offering, or responding to thanks." },
+      { pl: "Dziękuję", en: "Thank you", pron: "jen-KOO-yeh", tip: "Add <b>bardzo</b> (BAR-dzoh) for “thank you very much”: <i>Dziękuję bardzo.</i>" },
+      { pl: "Przepraszam", en: "Excuse me / I'm sorry", pron: "psheh-PRAH-sham", tip: "Both “sorry” and “excuse me, may I get your attention.” Essential." },
+      { pl: "Tak / Nie", en: "Yes / No", pron: "tahk / nyeh", tip: "<i>Nie</i> also negates verbs: <i>nie rozumiem</i> = “I don't understand.”" },
+      { pl: "Nie rozumiem", en: "I don't understand", pron: "nyeh roh-ZOO-myem", tip: "Your #1 survival phrase. Say it early and often, without shame." },
+      { pl: "Proszę powtórzyć", en: "Please repeat", pron: "PROH-sheh pov-TOO-zhihch", tip: "Pairs perfectly with the phrase above." },
+      { pl: "Czy mówi pan/pani po angielsku?", en: "Do you speak English? (to a man/woman)", pron: "chih MOO-vee pahn/PAH-nee poh an-GYEL-skoo", tip: "<i>Pan</i> = sir, <i>pani</i> = madam. More on this in Week 2." }
+    ],
+    grammar: {
+      title: "The Polish alphabet & sound combinations",
+      html: "<p>The Polish alphabet and sound combinations. Learn these five and half the language unlocks:</p><div class='combo-grid'><div class='combo'><span>sz</span>= sh</div><div class='combo'><span>cz</span>= ch</div><div class='combo'><span>rz / ż</span>= zh</div><div class='combo'><span>w</span>= v</div><div class='combo'><span>ł</span>= w</div></div><p>Practice by decoding the table's Polish column <b>without</b> looking at the pronunciation guide.</p><p class='note'>As a teacher, you'll find this useful: Polish is highly systematic. Spelling is nearly 100% phonetic once you learn the letter combinations — far more regular than English. Treat Weeks 1–2 as “decoding instruction” for yourself.</p>"
+    },
+    dialogue: [
+      { pl: "Dzień dobry!", en: "Good day!" },
+      { pl: "Dzień dobry. Przepraszam, czy mówi pani po angielsku?", en: "Good day. Excuse me, do you speak English?" },
+      { pl: "Nie, przepraszam.", en: "No, sorry." },
+      { pl: "Dziękuję! Do widzenia!", en: "Thank you! Goodbye!" }
+    ],
+    practice: [
+      { type: "choice", q: "It's 10 a.m. and you're greeting a shopkeeper you've never met. What do you say?", options: ["Cześć", "Dzień dobry", "Dobranoc", "Do widzenia"], answer: 1, explain: "Dzień dobry is the universal daytime greeting — formal and informal. Cześć is only for friends; Dobranoc is only for parting at night." },
+      { type: "type", q: "Cover the table! Translate to Polish: “I don't understand.”", answer: "Nie rozumiem", accept: ["nie rozumiem"], explain: "Your #1 survival phrase — say it early and often, without shame." },
+      { type: "choice", q: "Someone spoke too fast. Which phrase asks them to say it again?", options: ["Proszę powtórzyć", "Dziękuję bardzo", "Do widzenia", "Tak"], answer: 0, explain: "Proszę powtórzyć = please repeat. It pairs perfectly with Nie rozumiem." },
+      { type: "choice", q: "Decoding drill: how is “cz” pronounced?", options: ["like English sh", "like English ch", "like the s in pleasure", "like English v"], answer: 1, explain: "cz = ch. Remember the five keys: sz = sh, cz = ch, rz/ż = zh, w = v, ł = w." },
+      { type: "type", q: "You're leaving a shop. Say the formal goodbye.", answer: "Do widzenia", accept: ["do widzenia"], explain: "Do widzenia is the safe, polite goodbye in shops, offices and with strangers." }
+    ],
+    summary: [
+      "Dzień dobry is your default daytime greeting; Cześć is strictly for friends and peers.",
+      "Proszę is the Swiss Army knife of politeness: please, here you are, and you're welcome.",
+      "Nie rozumiem + Proszę powtórzyć is your survival combo — use it without shame.",
+      "Five sound keys unlock Polish spelling: sz = sh, cz = ch, rz/ż = zh, w = v, ł = w.",
+      "Nie negates verbs directly: nie rozumiem = I don't understand."
+    ]
+  },
+
+  /* ================= WEEK 2 ================= */
+  {
+    week: 2,
+    title: "Introductions",
+    subtitle: "& the Formal/Informal Divide",
+    goal: "Introduce yourself and understand the crucial pan/pani vs. ty system.",
+    intro: "This week you learn to introduce yourself — and you meet the single most important cultural rule in Polish: the formal/informal divide. Polish has two ways to say “you,” and choosing the right one is a matter of respect. You'll also pick up numbers 1–10. Learn two numbers per day and count objects around your classroom in Polish.",
+    vocab: [
+      { pl: "Jak masz na imię?", en: "What's your name? (informal)", pron: "yahk mahsh nah EE-myeh", tip: "Literally “how do you have for a first name.” Informal only." },
+      { pl: "Jak się pan/pani nazywa?", en: "What's your name? (formal)", pron: "yahk sheh pahn/PAH-nee nah-ZIH-vah", tip: "Use with strangers and anyone older or in a professional role." },
+      { pl: "Mam na imię...", en: "My name is...", pron: "mahm nah EE-myeh", tip: "Follow with your first name: <i>Mam na imię Anna.</i>" },
+      { pl: "Nazywam się...", en: "My name is... (full name)", pron: "nah-ZIH-vahm sheh", tip: "Used for first + last name together." },
+      { pl: "Miło mi", en: "Nice to meet you", pron: "MEE-woh mee", tip: "Literally “pleasant to me.” Short, warm, universal." },
+      { pl: "Jak się masz?", en: "How are you? (informal)", pron: "yahk sheh mahsh", tip: "Unlike English, Poles ask this only when they genuinely want an answer — it's not small-talk filler." },
+      { pl: "Dobrze, dziękuję", en: "Fine, thank you", pron: "DOB-zheh jen-KOO-yeh", tip: "The standard reply. Add <i>A ty?</i> (ah tih) = “And you?”" },
+      { pl: "Tak sobie", en: "So-so", pron: "tahk SOH-byeh", tip: "Poles answer honestly! This is a completely normal reply." },
+      { pl: "Skąd jesteś?", en: "Where are you from? (informal)", pron: "skont YES-tesh", tip: "Formal version: <i>Skąd pan/pani jest?</i>" },
+      { pl: "Jestem z...", en: "I'm from...", pron: "YES-tem z", tip: "<i>Jestem z Anglii</i> (from England), <i>z Ameryki</i> (from America), <i>z Indii</i> (from India)." },
+      { pl: "pan / pani", en: "Mr., sir / Mrs., madam", pron: "pahn / PAH-nee", tip: "Cultural cornerstone: Polish speaks <i>about</i> someone to be polite <i>to</i> them. “Do <b>you</b> speak English?” formally = “Does <b>the lady</b> speak English?”" },
+      { pl: "Liczby 1–10: jeden, dwa, trzy, cztery, pięć, sześć, siedem, osiem, dziewięć, dziesięć", en: "Numbers 1–10", pron: "YEH-den, dvah, tshih, CHTEH-rih, pyench, sheshch, SHEH-dem, OH-shem, JEH-vyench, JEH-shench", tip: "Learn two per day. Count objects around your classroom in Polish." }
+    ],
+    grammar: {
+      title: "The T–V distinction: ty vs. pan/pani",
+      html: "<p>Use <b>ty</b> (you, informal) with friends, family, children, students. Use <b>pan/pani</b> + third-person verb with everyone else.</p><p>When in doubt, go formal — Poles will invite you to switch (<i>“Mówmy sobie na ty”</i> — “let's use <i>ty</i> with each other”), and switching too early feels presumptuous, like calling a new colleague's grandmother by her first name.</p><div class='mini-table'><table><thead><tr><th>Register</th><th>Use with</th><th>Example</th></tr></thead><tbody><tr><td><b>ty</b> (informal)</td><td>friends, family, children, students</td><td>Jak masz na imię?</td></tr><tr><td><b>pan / pani</b> (formal)</td><td>strangers, elders, professionals</td><td>Jak się pan/pani nazywa?</td></tr></tbody></table></div>"
+    },
+    dialogue: [
+      { pl: "Dzień dobry, jak się pani nazywa?", en: "Good day, what's your name?" },
+      { pl: "Nazywam się Maria Nowak. A pan?", en: "My name is Maria Nowak. And you, sir?" },
+      { pl: "Mam na imię Tom. Miło mi!", en: "My name is Tom. Nice to meet you!" },
+      { pl: "Miło mi. Skąd pan jest?", en: "Nice to meet you. Where are you from?" },
+      { pl: "Jestem z Anglii.", en: "I'm from England." }
+    ],
+    practice: [
+      { type: "choice", q: "You're meeting an older stranger. How do you ask their name?", options: ["Jak masz na imię?", "Jak się pan/pani nazywa?", "Co robisz?", "Skąd jesteś?"], answer: 1, explain: "Formal situations take pan/pani + third-person verb. Jak masz na imię? is informal only." },
+      { type: "type", q: "Introduce yourself with your first name “Anna”: “My name is Anna.”", answer: "Mam na imię Anna", accept: ["mam na imie anna", "mam na imię anna"], explain: "Mam na imię + first name. For your full name use Nazywam się..." },
+      { type: "choice", q: "A Polish friend answers “Tak sobie” to “Jak się masz?”. What did they say?", options: ["Great!", "So-so", "Terrible", "None of your business"], answer: 1, explain: "Tak sobie = so-so. Poles answer honestly — it's a completely normal reply." },
+      { type: "type", q: "Count! Write the Polish number for 5.", answer: "pięć", accept: ["piec", "pięć", "pięć"], explain: "jeden, dwa, trzy, cztery, pięć — learn two numbers per day." },
+      { type: "choice", q: "When should you switch from pan/pani to ty?", options: ["Immediately, it's friendlier", "After one conversation", "When invited: “Mówmy sobie na ty”", "Never"], answer: 2, explain: "When in doubt, go formal. Poles will invite you to switch; switching too early feels presumptuous." }
+    ],
+    summary: [
+      "Two “you”s: ty for friends, family, children and students; pan/pani + third-person verb for everyone else.",
+      "When in doubt, go formal — wait for the invitation “Mówmy sobie na ty.”",
+      "Mam na imię... for your first name; Nazywam się... for your full name.",
+      "Jak się masz? is a genuine question in Poland, and Tak sobie is an honest, normal answer.",
+      "Numbers 1–10: jeden, dwa, trzy, cztery, pięć, sześć, siedem, osiem, dziewięć, dziesięć."
+    ]
+  },
+
+  /* ================= WEEK 3 ================= */
+  {
+    week: 3,
+    title: "Who Am I?",
+    subtitle: "The Verb “To Be” & Professions",
+    goal: "Say who you are, what you do, and conjugate your first verb.",
+    intro: "Time for your first verb — and it's the big one: być, “to be.” Polish drops pronouns because the verb ending already tells you who is acting, so jestem alone means “I am.” This week you'll say who you are, what you do for a living, and where you live. You'll also meet your first question words.",
+    vocab: [
+      { pl: "być", en: "to be", pron: "bihch", tip: "Your first infinitive. Polish drops pronouns because the verb ending tells you who: <i>jestem</i> alone = “I am.”" },
+      { pl: "jestem / jesteś", en: "I am / you are", pron: "YES-tem / YES-tesh", tip: "<i>Jestem zmęczony</i> = “I'm tired” (said by a man); <i>zmęczona</i> for a woman." },
+      { pl: "jest / jesteśmy / są", en: "he-she-it is / we are / they are", pron: "yest / yes-TESH-mih / sohm", tip: "<i>Pan jest...</i> / <i>Pani jest...</i> = formal “you are.”" },
+      { pl: "Jestem nauczycielem", en: "I'm a teacher (man)", pron: "YES-tem nah-oo-chih-CHEH-lem", tip: "Your key sentence! Note: no word for “a/an” — Polish has no articles at all. One thing <i>less</i> to learn." },
+      { pl: "Jestem nauczycielką", en: "I'm a teacher (woman)", pron: "YES-tem nah-oo-chih-CHEL-kohm", tip: "Most professions have masculine/feminine pairs: <i>lekarz/lekarka</i> (doctor), <i>student/studentka.</i>" },
+      { pl: "Kim jesteś z zawodu?", en: "What do you do?", pron: "keem YES-tesh z zah-VOH-doo", tip: "Literally “who are you by profession?”" },
+      { pl: "Pracuję w szkole", en: "I work in a school", pron: "prah-TSOO-yeh f SHKOH-leh", tip: "<i>W</i> before a consonant cluster is pronounced “f.”" },
+      { pl: "Uczę angielskiego", en: "I teach English", pron: "OO-cheh an-gyel-SKYEH-goh", tip: "Swap in <i>matematyki</i> (math), <i>historii</i> (history), <i>muzyki</i> (music)." },
+      { pl: "Mieszkam w...", en: "I live in...", pron: "MYESH-kahm v", tip: "<i>Mieszkam w Warszawie</i> = I live in Warsaw. City names change endings — just memorize your own city's form for now." },
+      { pl: "Mówię trochę po polsku", en: "I speak a little Polish", pron: "MOO-vyeh TROH-heh poh POL-skoo", tip: "Instantly earns goodwill. <i>Trochę</i> = “a little” — a very useful hedge word." },
+      { pl: "Uczę się polskiego", en: "I'm learning Polish", pron: "OO-cheh sheh pol-SKYEH-goh", tip: "Note <i>uczę</i> (I teach) vs. <i>uczę się</i> (I teach myself = I learn). The little word <i>się</i> flips the direction." },
+      { pl: "Kto? Co? Gdzie?", en: "Who? What? Where?", pron: "ktoh / tsoh / g-jeh", tip: "Your first question words. <i>Co to jest?</i> = “What is this?” — the ultimate vocabulary-building question." }
+    ],
+    grammar: {
+      title: "Full conjugation of być + grammatical gender",
+      html: "<p>Full conjugation of <b>być</b> (to be):</p><div class='mini-table'><table><thead><tr><th>Person</th><th>Polish</th><th>English</th></tr></thead><tbody><tr><td>ja</td><td><b>jestem</b></td><td>I am</td></tr><tr><td>ty</td><td><b>jesteś</b></td><td>you are</td></tr><tr><td>on / ona / ono</td><td><b>jest</b></td><td>he / she / it is</td></tr><tr><td>my</td><td><b>jesteśmy</b></td><td>we are</td></tr><tr><td>wy</td><td><b>jesteście</b></td><td>you (plural) are</td></tr><tr><td>oni / one</td><td><b>są</b></td><td>they are</td></tr></tbody></table></div><p>Also notice <b>grammatical gender</b>: adjectives and even professions agree with the speaker's gender (<i>nauczycielem</i> vs. <i>nauczycielką</i>). Pick your form and practice it until automatic.</p>"
+    },
+    dialogue: [
+      { pl: "Kim jesteś z zawodu?", en: "What do you do?" },
+      { pl: "Jestem nauczycielem. Uczę angielskiego. A ty?", en: "I'm a teacher. I teach English. And you?" },
+      { pl: "Jestem lekarką. Gdzie mieszkasz?", en: "I'm a doctor. Where do you live?" },
+      { pl: "Mieszkam w Krakowie, ale jestem z Londynu.", en: "I live in Kraków, but I'm from London." }
+    ],
+    practice: [
+      { type: "choice", q: "Fill the gap: Oni ___ z Polski. (They are from Poland.)", options: ["jest", "jesteśmy", "są", "jesteś"], answer: 2, explain: "są = they are. The full set: jestem, jesteś, jest, jesteśmy, jesteście, są." },
+      { type: "type", q: "Say: “I live in Kraków.” (Mieszkam w + Krakowie)", answer: "Mieszkam w Krakowie", accept: ["mieszkam w krakowie"], explain: "Mieszkam w... City names change endings — memorize your own city's form." },
+      { type: "choice", q: "A woman introduces herself as a teacher. She says:", options: ["Jestem nauczycielem", "Jestem nauczycielką", "Jestem nauczyciel", "Jest nauczycielka"], answer: 1, explain: "Professions agree with the speaker's gender: nauczycielem (man) vs. nauczycielką (woman)." },
+      { type: "choice", q: "How do you say “a teacher” vs. “the teacher” in Polish?", options: ["a = jeden, the = ten", "Both use “to”", "Polish has no articles at all", "It depends on the case"], answer: 2, explain: "Polish has no articles — no word for a/an/the. One thing less to learn!" },
+      { type: "type", q: "Point at anything and ask: “What is this?”", answer: "Co to jest?", accept: ["co to jest", "co to jest?"], explain: "Co to jest? — the ultimate vocabulary-building question." }
+    ],
+    summary: [
+      "być conjugates as jestem, jesteś, jest, jesteśmy, jesteście, są — and the ending replaces the pronoun.",
+      "Polish has no articles: Jestem nauczycielem means “I'm a teacher” with no a/an needed.",
+      "Professions and adjectives agree with your gender: nauczycielem / nauczycielką, zmęczony / zmęczona.",
+      "się flips a verb's direction: uczę = I teach, uczę się = I learn.",
+      "Question words Kto? Co? Gdzie? — and Co to jest? builds vocabulary anywhere."
+    ]
+  },
+
+  /* ================= WEEK 4 ================= */
+  {
+    week: 4,
+    title: "Family & Having Things",
+    subtitle: "The Verb “Mieć”",
+    goal: "Talk about your family and possessions with your second verb, mieć (to have).",
+    intro: "Your second verb, mieć (to have), unlocks family, pets, possessions — and even your age, because in Polish you “have” years. You'll also meet grammatical gender properly this week: every Polish noun is masculine, feminine or neuter, and the endings are honest signposts.",
+    vocab: [
+      { pl: "mieć", en: "to have", pron: "myech", tip: "Conjugation: mam, masz, ma, mamy, macie, mają. Notice it echoes <i>Jak <b>masz</b> na imię?</i> from Week 2." },
+      { pl: "Mam rodzinę", en: "I have a family", pron: "mahm roh-JEE-neh", tip: "<i>Rodzina</i> becomes <i>rodzinę</i> after <i>mam</i> — your first sighting of the accusative case (Week 6 explains it)." },
+      { pl: "mama / tata", en: "mom / dad", pron: "MAH-mah / TAH-tah", tip: "Formal versions: <i>matka</i> (mother), <i>ojciec</i> (OY-chets, father)." },
+      { pl: "mąż / żona", en: "husband / wife", pron: "mownzh / ZHOH-nah", tip: "<i>Mam męża</i> (I have a husband), <i>Mam żonę</i> (I have a wife)." },
+      { pl: "syn / córka", en: "son / daughter", pron: "sihn / TSOOR-kah", tip: "<i>Mam syna i córkę</i> = I have a son and a daughter. <i>I</i> (ee) = “and.”" },
+      { pl: "brat / siostra", en: "brother / sister", pron: "braht / SHOS-trah", tip: "<i>Mam brata</i> / <i>Mam siostrę.</i>" },
+      { pl: "dzieci", en: "children", pron: "JEH-chee", tip: "<i>Mam dwoje dzieci</i> = I have two children. <i>Nie mam dzieci</i> = I don't have children." },
+      { pl: "mój / moja / moje", en: "my (masc./fem./neut.)", pron: "mooy / MOH-yah / MOH-yeh", tip: "Matches the noun's gender: <i>mój brat, moja siostra, moje dziecko.</i> Rule of thumb: nouns ending in a consonant = masculine, <b>-a</b> = feminine, <b>-o/-e</b> = neuter." },
+      { pl: "twój / twoja / twoje", en: "your (informal)", pron: "tfooy / TFOH-yah / TFOH-yeh", tip: "Same gender-matching pattern." },
+      { pl: "Ile masz lat?", en: "How old are you?", pron: "EE-leh mahsh laht", tip: "Literally “how many years do you have?” — like French/Spanish." },
+      { pl: "Mam ... lat", en: "I am ... years old", pron: "mahm ... laht", tip: "<i>Mam czterdzieści lat</i> = I'm 40. Learn just your own age as a fixed phrase for now." },
+      { pl: "pies / kot", en: "dog / cat", pron: "pyes / kot", tip: "<i>Mam psa</i> (I have a dog), <i>Mam kota</i> (I have a cat). Pet talk is excellent icebreaker material in Poland." }
+    ],
+    grammar: {
+      title: "Grammatical gender: three columns for every noun",
+      html: "<p>Every Polish noun is <b>masculine</b>, <b>feminine</b>, or <b>neuter</b>. You cannot skip this; possessives, adjectives, and verbs in the past all agree with it.</p><p>Good news for a teacher: the endings are honest signposts:</p><div class='mini-table'><table><thead><tr><th>Gender</th><th>Typical ending</th><th>Example</th><th>“my”</th></tr></thead><tbody><tr><td>Masculine</td><td>consonant</td><td>brat, kot, syn</td><td><b>mój</b> brat</td></tr><tr><td>Feminine</td><td>-a</td><td>siostra, żona, córka</td><td><b>moja</b> siostra</td></tr><tr><td>Neuter</td><td>-o / -e</td><td>dziecko</td><td><b>moje</b> dziecko</td></tr></tbody></table></div><p>Sort every noun you've learned so far into three columns.</p><p>And your second verb, <b>mieć</b> (to have): <b>mam, masz, ma, mamy, macie, mają</b>.</p>"
+    },
+    dialogue: [
+      { pl: "Czy masz rodzinę?", en: "Do you have a family?" },
+      { pl: "Tak, mam żonę i dwoje dzieci.", en: "Yes, I have a wife and two children." },
+      { pl: "A masz psa?", en: "And do you have a dog?" },
+      { pl: "Nie, ale mam kota. Mój kot ma na imię Filemon.", en: "No, but I have a cat. My cat's name is Filemon." }
+    ],
+    practice: [
+      { type: "choice", q: "Conjugate mieć: “you have” (informal) is:", options: ["mam", "masz", "ma", "mają"], answer: 1, explain: "mam, masz, ma, mamy, macie, mają — masz echoes Jak masz na imię? from Week 2." },
+      { type: "choice", q: "Which possessive matches “siostra” (sister)?", options: ["mój", "moja", "moje", "moji"], answer: 1, explain: "siostra ends in -a → feminine → moja siostra. Consonant = mój, -o/-e = moje." },
+      { type: "type", q: "Icebreaker time! Say: “I have a cat.”", answer: "Mam kota", accept: ["mam kota"], explain: "Mam kota. For a dog: Mam psa. Pet talk is excellent icebreaker material in Poland." },
+      { type: "choice", q: "Gender-sorting drill: “dziecko” (child) is…", options: ["masculine", "feminine", "neuter", "plural only"], answer: 2, explain: "Nouns ending in -o/-e are neuter: moje dziecko." },
+      { type: "type", q: "Ask someone their age (literally: how many years do you have?).", answer: "Ile masz lat?", accept: ["ile masz lat", "ile masz lat?"], explain: "Ile masz lat? Answer: Mam ... lat — learn your own age as a fixed phrase." }
+    ],
+    summary: [
+      "mieć (to have): mam, masz, ma, mamy, macie, mają.",
+      "Every noun has a gender, and endings are honest signposts: consonant = masculine, -a = feminine, -o/-e = neuter.",
+      "Possessives agree: mój brat, moja siostra, moje dziecko (same for twój/twoja/twoje).",
+      "Age uses “have”: Ile masz lat? — Mam ... lat.",
+      "Nouns change after mam (rodzina → rodzinę) — that's the accusative case, fully explained in Week 6."
+    ]
+  },
+
+  /* ================= WEEK 5 ================= */
+  {
+    week: 5,
+    title: "My Day",
+    subtitle: "Present Tense Verbs & Daily Routine",
+    goal: "Describe your daily routine using the two main present-tense verb patterns.",
+    intro: "This week you describe your whole day — waking up, coffee, work, evening study — using the two workhorse conjugation patterns of Polish. Bonus relief: Polish has one present tense that covers both English “I do” and “I am doing.” Your Day 5 writing task: your real daily routine in six sentences.",
+    vocab: [
+      { pl: "Wstaję o siódmej", en: "I get up at seven", pron: "FSTAH-yeh oh SHOOD-mey", tip: "Learn your own wake-up time as a chunk." },
+      { pl: "Piję kawę / herbatę", en: "I drink coffee / tea", pron: "PEE-yeh KAH-veh / her-BAH-teh", tip: "Poland is a serious tea country — <i>herbata</i> is a national institution." },
+      { pl: "Jem śniadanie", en: "I eat breakfast", pron: "yem shnyah-DAH-nyeh", tip: "<i>Obiad</i> (OH-byat) = the main midday/afternoon meal; <i>kolacja</i> (koh-LAHTS-yah) = supper." },
+      { pl: "Idę do pracy", en: "I'm going to work", pron: "EE-deh doh PRAH-tsih", tip: "<i>Idę do szkoły</i> = I'm going to school — you'll say this daily." },
+      { pl: "Pracuję od ósmej do trzeciej", en: "I work from 8 to 3", pron: "prah-TSOO-yeh od OOS-mey doh TSHEH-chey", tip: "Adjust to your real hours; the <i>od...do...</i> frame is reusable everywhere." },
+      { pl: "Czytam książkę", en: "I'm reading a book", pron: "CHIH-tahm KSHOWNSH-keh", tip: "<i>Czytać</i> is a model “-am” verb: czytam, czytasz, czyta, czytamy, czytacie, czytają." },
+      { pl: "Oglądam telewizję", en: "I watch TV", pron: "oh-GLOWN-dahm teh-leh-VEEZ-yeh", tip: "Same “-am” pattern as <i>czytam.</i>" },
+      { pl: "Gotuję obiad", en: "I cook dinner", pron: "goh-TOO-yeh OH-byat", tip: "Model “-ę/-esz” verb: gotuję, gotujesz, gotuje..." },
+      { pl: "Uczę się wieczorem", en: "I study in the evening", pron: "OO-cheh sheh vyeh-CHOH-rem", tip: "<i>Rano</i> = in the morning, <i>po południu</i> = in the afternoon, <i>wieczorem</i> = in the evening, <i>w nocy</i> = at night." },
+      { pl: "Śpię", en: "I sleep / I'm sleeping", pron: "shpyeh", tip: "Polish present covers both English “I do” and “I am doing” — one tense, two English meanings. A relief!" },
+      { pl: "zawsze / często / czasami / nigdy", en: "always / often / sometimes / never", pron: "ZAF-sheh / CHENS-toh / chah-SAH-mee / NEEG-dih", tip: "Frequency words slot right before the verb: <i>Często czytam</i> = I often read." },
+      { pl: "Co robisz?", en: "What are you doing?", pron: "tsoh ROH-beesh", tip: "Great conversation starter. Answer with any verb from this week." }
+    ],
+    grammar: {
+      title: "The two workhorse conjugation patterns",
+      html: "<p>Polish present-tense verbs mostly follow one of two patterns:</p><div class='mini-table'><table><thead><tr><th></th><th>Pattern 1: <b>-am, -asz, -a</b></th><th>Pattern 2: <b>-ę, -esz/-isz, -e/-i</b></th></tr></thead><tbody><tr><td>ja</td><td>czyt<b>am</b></td><td>gotuj<b>ę</b></td></tr><tr><td>ty</td><td>czyt<b>asz</b></td><td>gotuj<b>esz</b></td></tr><tr><td>on/ona</td><td>czyt<b>a</b></td><td>gotuj<b>e</b></td></tr><tr><td>my</td><td>czyt<b>amy</b></td><td>gotuj<b>emy</b></td></tr><tr><td>wy</td><td>czyt<b>acie</b></td><td>gotuj<b>ecie</b></td></tr><tr><td>oni</td><td>czyt<b>ają</b></td><td>gotuj<b>ą</b></td></tr></tbody></table></div><p>Pattern 1 examples: <i>czytam, mieszkam, oglądam.</i> Pattern 2 examples: <i>pracuję, uczę, piję.</i></p><p>Write your real daily routine in 6 sentences using both patterns — this becomes your Day 5 writing task.</p>"
+    },
+    dialogue: [
+      { pl: "Co robisz rano?", en: "What do you do in the morning?" },
+      { pl: "Wstaję o szóstej, piję kawę i idę do pracy.", en: "I get up at six, drink coffee, and go to work." },
+      { pl: "A wieczorem?", en: "And in the evening?" },
+      { pl: "Wieczorem gotuję kolację i uczę się polskiego!", en: "In the evening I cook supper and study Polish!" }
+    ],
+    practice: [
+      { type: "choice", q: "Pattern 1 drill (czytać): “we read” is:", options: ["czytam", "czytamy", "czytają", "czytacie"], answer: 1, explain: "czytam, czytasz, czyta, czytamy, czytacie, czytają — the -am pattern." },
+      { type: "type", q: "Say: “I drink coffee.”", answer: "Piję kawę", accept: ["pije kawe", "piję kawę", "pije kawę", "piję kawe"], explain: "Piję kawę — piję follows the -ę/-esz pattern, and kawa becomes kawę (accusative preview!)." },
+      { type: "choice", q: "Where do frequency words like często go?", options: ["At the end of the sentence", "Right before the verb", "Right after the verb", "Anywhere, always"], answer: 1, explain: "Frequency words slot right before the verb: Często czytam = I often read." },
+      { type: "choice", q: "“Śpię” can mean:", options: ["Only “I sleep”", "Only “I am sleeping”", "Both — one tense covers both", "Neither"], answer: 2, explain: "Polish present covers both English “I do” and “I am doing.” One tense, two meanings — a relief!" },
+      { type: "type", q: "Start a conversation: ask “What are you doing?”", answer: "Co robisz?", accept: ["co robisz", "co robisz?"], explain: "Co robisz? Answer with any verb from this week." }
+    ],
+    summary: [
+      "Pattern 1 (-am, -asz, -a): czytam, mieszkam, oglądam. Pattern 2 (-ę, -esz/-isz, -e/-i): pracuję, uczę, piję.",
+      "One present tense covers both “I do” and “I am doing.”",
+      "Time-of-day words: rano, po południu, wieczorem, w nocy — and the od...do... frame for hours.",
+      "Frequency words (zawsze, często, czasami, nigdy) sit right before the verb.",
+      "Your Day 5 task: write your real routine in six sentences using both patterns."
+    ]
+  },
+
+  /* ================= WEEK 6 ================= */
+  {
+    week: 6,
+    title: "Food & Ordering",
+    subtitle: "Your First Case (Accusative)",
+    goal: "Order confidently in a café or restaurant and understand why word endings change.",
+    intro: "This week you eat! You'll learn the single most useful ordering formula in Polish — Poproszę + item — plus the food words that get you through any café, restaurant, or Polish grandmother's kitchen. And the mystery of changing word endings finally gets solved: meet the accusative case.",
+    vocab: [
+      { pl: "Poproszę kawę", en: "I'd like a coffee, please", pron: "poh-PROH-sheh KAH-veh", tip: "<i>Poproszę</i> + item = the single most useful ordering formula in Polish. Politer than <i>chcę</i> (I want)." },
+      { pl: "Poproszę menu", en: "The menu, please", pron: "poh-PROH-sheh MEH-nee", tip: "<i>Menu</i> is a borrowed word — it never changes form." },
+      { pl: "Co pan/pani poleca?", en: "What do you recommend?", pron: "tsoh pahn/PAH-nee poh-LEH-tsah", tip: "Waiters love this question, and it invites listening practice." },
+      { pl: "Jestem głodny / głodna", en: "I'm hungry (m/f)", pron: "YES-tem GWOD-nih / GWOD-nah", tip: "<i>Jestem spragniony/spragniona</i> = I'm thirsty (or simply <i>Chce mi się pić</i>)." },
+      { pl: "woda / sok / piwo / wino", en: "water / juice / beer / wine", pron: "VOH-dah / sok / PEE-voh / VEE-noh", tip: "<i>Woda gazowana</i> = sparkling; <i>niegazowana</i> = still. You will always be asked which." },
+      { pl: "chleb / ser / szynka", en: "bread / cheese / ham", pron: "hlep / ser / SHIN-kah", tip: "Core breakfast trio in Poland." },
+      { pl: "zupa / pierogi / kotlet", en: "soup / dumplings / cutlet", pron: "ZOO-pah / pyeh-ROH-gee / KOT-let", tip: "<i>Pierogi</i> is already plural — never say “pierogis” and Poles will adore you." },
+      { pl: "smacznego!", en: "Bon appétit!", pron: "smach-NEH-goh", tip: "Said before every meal, even by waiters. Reply: <i>dziękuję, nawzajem</i> (thanks, likewise)." },
+      { pl: "To jest pyszne!", en: "This is delicious!", pron: "toh yest PIHSH-neh", tip: "The compliment every Polish cook is waiting for." },
+      { pl: "Ile to kosztuje?", en: "How much does it cost?", pron: "EE-leh toh kosh-TOO-yeh", tip: "Preview of Week 7." },
+      { pl: "Poproszę rachunek", en: "The bill, please", pron: "poh-PROH-sheh rah-HOO-nek", tip: "In Poland you usually must ask for the bill — it won't be brought automatically." },
+      { pl: "nie jem mięsa", en: "I don't eat meat", pron: "nyeh yem MYEN-sah", tip: "Also handy: <i>Mam alergię na...</i> (I'm allergic to...) + <i>orzechy</i> (nuts), <i>gluten</i>, <i>laktozę.</i>" }
+    ],
+    grammar: {
+      title: "The accusative case: why endings change",
+      html: "<p>The <b>accusative case</b> — the form a noun takes as a <b>direct object</b>.</p><p>The visible A1 rule: <b>feminine -a becomes -ę</b>:</p><div class='mini-table'><table><thead><tr><th>Dictionary form</th><th>After a verb (direct object)</th></tr></thead><tbody><tr><td>kawa</td><td>Poproszę <b>kawę</b></td></tr><tr><td>herbata</td><td>Piję <b>herbatę</b></td></tr><tr><td>zupa</td><td>Polecam <b>zupę</b></td></tr></tbody></table></div><p>Masculine and neuter objects mostly stay unchanged at this level. This one rule explains most of the ending changes you've seen since Week 4.</p>"
+    },
+    dialogue: [
+      { pl: "Dzień dobry, co pani poleca?", en: "Good day, what do you recommend?" },
+      { pl: "Polecam pierogi i zupę pomidorową.", en: "I recommend pierogi and tomato soup." },
+      { pl: "Poproszę pierogi i wodę niegazowaną.", en: "I'll have the pierogi and a still water, please." },
+      { pl: "Smacznego!", en: "Enjoy your meal!" },
+      { pl: "Dziękuję! ... Przepraszam, poproszę rachunek.", en: "Thank you! ... Excuse me, the bill please." }
+    ],
+    practice: [
+      { type: "choice", q: "The politest way to order a coffee:", options: ["Chcę kawa", "Poproszę kawę", "Daj kawę", "Kawa!"], answer: 1, explain: "Poproszę + item is the ordering formula — politer than chcę (I want). And kawa → kawę as a direct object." },
+      { type: "choice", q: "Accusative drill: Piję ___ (herbata).", options: ["herbata", "herbatę", "herbaty", "herbato"], answer: 1, explain: "Feminine -a becomes -ę as a direct object: herbata → herbatę." },
+      { type: "type", q: "The meal is over and the bill won't come by itself. Ask for it.", answer: "Poproszę rachunek", accept: ["poprosze rachunek", "poproszę rachunek"], explain: "Poproszę rachunek — in Poland you usually must ask for the bill." },
+      { type: "choice", q: "The waiter says “Smacznego!” You reply:", options: ["Nie rozumiem", "Dziękuję, nawzajem", "Do widzenia", "Tak sobie"], answer: 1, explain: "Dziękuję, nawzajem = thanks, likewise. Smacznego is said before every meal, even by waiters." },
+      { type: "type", q: "Make a Polish cook's day. Say: “This is delicious!”", answer: "To jest pyszne!", accept: ["to jest pyszne", "to jest pyszne!"], explain: "To jest pyszne! — the compliment every Polish cook is waiting for." }
+    ],
+    summary: [
+      "Poproszę + item is your universal, polite ordering formula.",
+      "Accusative rule at A1: feminine -a → -ę as a direct object (kawa → kawę, zupa → zupę); masculine/neuter mostly unchanged.",
+      "Smacznego! before every meal; reply Dziękuję, nawzajem.",
+      "Ask for the bill — Poproszę rachunek — it won't come automatically.",
+      "Pierogi is already plural; nie jem mięsa and Mam alergię na... keep you safe at the table."
+    ]
+  },
+
+  /* ================= WEEK 7 ================= */
+  {
+    week: 7,
+    title: "Shopping & Money",
+    subtitle: "Numbers to 1000",
+    goal: "Handle any shopping transaction and understand prices spoken aloud.",
+    intro: "Armed with Poproszę from last week, you now take on shops, markets and prices. Numbers grow from 10 to 1000, you learn the złoty, and you'll finally understand what the cashier keeps asking you. Practice by reading prices aloud from an online Polish supermarket.",
+    vocab: [
+      { pl: "dwadzieścia / trzydzieści / czterdzieści", en: "20 / 30 / 40", pron: "dvah-JESH-chah / tshih-JESH-chee / chter-JESH-chee", tip: "Tens follow a pattern; 50–90 all end in <i>-dziesiąt</i>: pięćdziesiąt, sześćdziesiąt..." },
+      { pl: "sto / dwieście / pięćset / tysiąc", en: "100 / 200 / 500 / 1000", pron: "stoh / DVYESH-cheh / PYENCH-set / TIH-shonts", tip: "Prices in Poland use złoty (PLN): roughly 1 USD ≈ 3.6 zł." },
+      { pl: "złoty / grosz", en: "zloty / grosz (cents)", pron: "ZWOH-tih / grosh", tip: "100 groszy = 1 złoty. On price tags: 12,50 zł (comma, not decimal point)." },
+      { pl: "Gdzie jest sklep?", en: "Where is the shop?", pron: "g-jeh yest sklep", tip: "<i>Sklep spożywczy</i> = grocery store; <i>apteka</i> = pharmacy; <i>piekarnia</i> = bakery." },
+      { pl: "Szukam...", en: "I'm looking for...", pron: "SHOO-kahm", tip: "<i>Szukam prezentu</i> = I'm looking for a gift. Staff will take over from there." },
+      { pl: "Czy mogę zapłacić kartą?", en: "Can I pay by card?", pron: "chih MOH-geh zah-PWAH-cheech KAR-tohm", tip: "Card payment is universal in Poland, but the phrase builds confidence. <i>Gotówką</i> = in cash." },
+      { pl: "To jest za drogie", en: "That's too expensive", pron: "toh yest zah DROH-gyeh", tip: "<i>Drogi</i> = expensive; <i>tani</i> = cheap. <i>Za</i> + adjective = “too ___”." },
+      { pl: "Poproszę kilogram jabłek", en: "A kilo of apples, please", pron: "poh-PROH-sheh kee-LOH-grahm YAH-bwek", tip: "Markets sell by weight. <i>Pół kilo</i> = half a kilo." },
+      { pl: "jabłko / pomidor / ziemniak", en: "apple / tomato / potato", pron: "YAHP-koh / poh-MEE-dor / ZHEM-nyahk", tip: "Poland runs on potatoes — <i>ziemniaki</i> appear at nearly every dinner." },
+      { pl: "mleko / masło / jajka", en: "milk / butter / eggs", pron: "MLEH-koh / MAHS-woh / YAY-kah", tip: "Your basic shopping list — write it in Polish each week for free practice." },
+      { pl: "Czy to wszystko?", en: "Is that everything?", pron: "chih toh FSHIST-koh", tip: "Cashiers ask this constantly. Answer: <i>Tak, to wszystko</i> or <i>Poproszę jeszcze...</i> (I'd also like...)." },
+      { pl: "reklamówka", en: "plastic bag", pron: "reh-klah-MOOF-kah", tip: "Cashiers will ask if you want one: <i>Czy potrzebuje pan/pani reklamówkę?</i> Now you'll understand them." }
+    ],
+    grammar: {
+      title: "Numbers 11–19 and composing any number",
+      html: "<p>Numbers 11–19 all end in <b>-naście</b>: <i>jedenaście, dwanaście, trzynaście, czternaście, piętnaście, szesnaście, siedemnaście, osiemnaście, dziewiętnaście.</i></p><p>Composing any number works like English — say the tens, then the units:</p><div class='mini-table'><table><thead><tr><th>Number</th><th>Polish</th></tr></thead><tbody><tr><td>47</td><td>czterdzieści siedem</td></tr><tr><td>25</td><td>dwadzieścia pięć</td></tr><tr><td>99</td><td>dziewięćdziesiąt dziewięć</td></tr></tbody></table></div><p>Practice by reading prices from an online Polish supermarket (e.g., browse frisco.pl) aloud.</p>"
+    },
+    dialogue: [
+      { pl: "Dzień dobry, poproszę kilogram jabłek i pół kilo pomidorów.", en: "Good day, a kilo of apples and half a kilo of tomatoes, please." },
+      { pl: "Proszę. Czy to wszystko?", en: "Here you are. Is that everything?" },
+      { pl: "Tak, to wszystko. Ile płacę?", en: "Yes, that's all. How much do I pay?" },
+      { pl: "Piętnaście złotych.", en: "Fifteen zloty." },
+      { pl: "Czy mogę zapłacić kartą?", en: "Can I pay by card?" },
+      { pl: "Oczywiście!", en: "Of course!" }
+    ],
+    practice: [
+      { type: "choice", q: "Compose the number 47:", options: ["siedem czterdzieści", "czterdzieści siedem", "czternaście siedem", "cztery siedem"], answer: 1, explain: "Tens then units, like English: czterdzieści siedem = 47." },
+      { type: "type", q: "Write the Polish word for 100.", answer: "sto", accept: ["sto"], explain: "sto = 100, dwieście = 200, pięćset = 500, tysiąc = 1000." },
+      { type: "choice", q: "The cashier asks “Czy to wszystko?” — what do they want to know?", options: ["Do you want a bag?", "Is that everything?", "Card or cash?", "Do you have a loyalty card?"], answer: 1, explain: "Czy to wszystko? = Is that everything? Answer: Tak, to wszystko, or Poproszę jeszcze... (I'd also like...)." },
+      { type: "type", q: "You'd rather not use cash. Ask: “Can I pay by card?”", answer: "Czy mogę zapłacić kartą?", accept: ["czy moge zaplacic karta", "czy mogę zapłacić kartą", "czy moge zaplacic karta?", "czy mogę zapłacić kartą?"], explain: "Czy mogę zapłacić kartą? Gotówką = in cash." },
+      { type: "choice", q: "“To jest za drogie” means:", options: ["That's very cheap", "That's on sale", "That's too expensive", "That's the wrong price"], answer: 2, explain: "Za + adjective = “too ___”. Drogi = expensive, tani = cheap." }
+    ],
+    summary: [
+      "11–19 end in -naście; 50–90 end in -dziesiąt; compose numbers tens-then-units: czterdzieści siedem = 47.",
+      "Money: złoty (zł) and grosz; price tags use a comma — 12,50 zł.",
+      "Poproszę kilogram jabłek / pół kilo — markets sell by weight.",
+      "Cashier survival: Czy to wszystko? (Is that everything?) and the reklamówka (bag) question.",
+      "Czy mogę zapłacić kartą? — and za drogie means too expensive."
+    ]
+  },
+
+  /* ================= WEEK 8 ================= */
+  {
+    week: 8,
+    title: "Getting Around",
+    subtitle: "Directions & Places in Town",
+    goal: "Ask for and understand directions; name the key places in any Polish town.",
+    intro: "Every Polish old town centers on a rynek — and this week you learn to find it. You'll ask for directions, understand the answers, and name the key places in any town. Fun fact from the curriculum: Poles are famously helpful to lost foreigners attempting Polish. Expect to be personally escorted.",
+    vocab: [
+      { pl: "Przepraszam, gdzie jest...?", en: "Excuse me, where is...?", pron: "psheh-PRAH-sham, g-jeh yest", tip: "Your master key for directions. Always open with <i>przepraszam.</i>" },
+      { pl: "dworzec / przystanek", en: "train station / bus stop", pron: "DVOH-zhets / pshih-STAH-nek", tip: "<i>Dworzec PKP</i> = train station; <i>dworzec autobusowy</i> = bus station." },
+      { pl: "rynek", en: "market square", pron: "RIH-nek", tip: "Every Polish old town centers on a <i>rynek</i> — it's where you'll meet people." },
+      { pl: "kościół / muzeum / park", en: "church / museum / park", pron: "KOSH-choow / moo-ZEH-oom / park", tip: "Neuter borrowed words like <i>muzeum</i> never change endings — enjoy them." },
+      { pl: "toaleta / łazienka", en: "toilet / bathroom", pron: "toh-ah-LEH-tah / wah-ZHEN-kah", tip: "<i>Gdzie jest toaleta?</i> — commit this to permanent memory." },
+      { pl: "prosto", en: "straight ahead", pron: "PROS-toh", tip: "<i>Proszę iść prosto</i> = please go straight." },
+      { pl: "w lewo / w prawo", en: "to the left / to the right", pron: "v LEH-voh / f PRAH-voh", tip: "Physically gesture while practicing — motor memory helps enormously." },
+      { pl: "blisko / daleko", en: "near / far", pron: "BLEES-koh / dah-LEH-koh", tip: "<i>Czy to daleko?</i> = Is it far? Common answer: <i>Nie, to pięć minut pieszo</i> (no, five minutes on foot)." },
+      { pl: "obok / naprzeciwko", en: "next to / opposite", pron: "OH-bok / nah-psheh-CHEEF-koh", tip: "<i>Apteka jest obok banku</i> = the pharmacy is next to the bank." },
+      { pl: "Jak dojść do...?", en: "How do I get to...? (on foot)", pron: "yahk doyshch doh", tip: "For transport: <i>Jak dojechać do...?</i> (yahk doh-YEH-hahch)." },
+      { pl: "bilet", en: "ticket", pron: "BEE-let", tip: "<i>Poproszę bilet do Krakowa</i> = a ticket to Kraków, please. <i>Bilet normalny</i> = full fare; <i>ulgowy</i> = reduced." },
+      { pl: "Jestem zgubiony / zgubiona", en: "I'm lost (m/f)", pron: "YES-tem zgoo-BYOH-nih / zgoo-BYOH-nah", tip: "Poles are famously helpful to lost foreigners attempting Polish — expect to be personally escorted." }
+    ],
+    grammar: {
+      title: "The locative case in its most useful disguise",
+      html: "<p>The locative case in its most useful disguise: <b>w + place</b> (in) and <b>na + place</b> (at/on).</p><div class='mini-table'><table><thead><tr><th>Phrase</th><th>Meaning</th></tr></thead><tbody><tr><td><b>w</b> szkole</td><td>at school</td></tr><tr><td><b>w</b> banku</td><td>in the bank</td></tr><tr><td><b>na</b> rynku</td><td>on the square</td></tr><tr><td><b>na</b> dworcu</td><td>at the station</td></tr></tbody></table></div><p>Don't memorize rules yet — memorize these as <b>fixed phrases</b>; the pattern will crystallize on its own.</p>"
+    },
+    dialogue: [
+      { pl: "Przepraszam, gdzie jest dworzec?", en: "Excuse me, where is the train station?" },
+      { pl: "Proszę iść prosto, a potem w lewo. To pięć minut.", en: "Go straight, then left. It's five minutes." },
+      { pl: "Czy to daleko?", en: "Is it far?" },
+      { pl: "Nie, blisko. Obok parku.", en: "No, it's close. Next to the park." },
+      { pl: "Dziękuję bardzo!", en: "Thank you very much!" }
+    ],
+    practice: [
+      { type: "choice", q: "Someone says “Proszę iść prosto, a potem w prawo.” You should go:", options: ["Left, then straight", "Straight, then right", "Right, then left", "Back the way you came"], answer: 1, explain: "prosto = straight ahead, w prawo = to the right, w lewo = to the left." },
+      { type: "type", q: "The phrase to commit to permanent memory: “Excuse me, where is the toilet?”", answer: "Przepraszam, gdzie jest toaleta?", accept: ["przepraszam gdzie jest toaleta", "przepraszam, gdzie jest toaleta", "przepraszam gdzie jest toaleta?", "przepraszam, gdzie jest toaleta?"], explain: "Przepraszam, gdzie jest toaleta? Always open with przepraszam." },
+      { type: "choice", q: "“Apteka jest obok banku” means the pharmacy is:", options: ["opposite the bank", "next to the bank", "inside the bank", "far from the bank"], answer: 1, explain: "obok = next to; naprzeciwko = opposite." },
+      { type: "choice", q: "You're on foot. How do you ask the way to the rynek?", options: ["Jak dojechać do rynku?", "Jak dojść do rynku?", "Ile kosztuje rynek?", "Czy rynek mówi po angielsku?"], answer: 1, explain: "Jak dojść do...? is for walking; Jak dojechać do...? is for transport." },
+      { type: "type", q: "One word: “straight ahead.”", answer: "prosto", accept: ["prosto"], explain: "prosto — as in Proszę iść prosto (please go straight)." }
+    ],
+    summary: [
+      "Przepraszam, gdzie jest...? is your master key — always open with przepraszam.",
+      "Direction words: prosto, w lewo, w prawo, blisko, daleko, obok, naprzeciwko.",
+      "Locative as fixed phrases: w szkole, w banku, na rynku, na dworcu — the pattern crystallizes on its own.",
+      "Jak dojść do...? on foot; Jak dojechać do...? by transport; Poproszę bilet do... for tickets.",
+      "Jestem zgubiony/zgubiona — and expect Poles to personally escort you."
+    ]
+  },
+
+  /* ================= WEEK 9 ================= */
+  {
+    week: 9,
+    title: "Time & Making Plans",
+    subtitle: "Days, Months & Meetings",
+    goal: "Tell time, name days and months, and arrange to meet someone.",
+    intro: "Coffee, maybe? This week you learn to tell the time, name every day and month, and — most usefully — arrange to meet someone. Polish weekday names are wonderfully logical (środa is “the middle one,” czwartek “the fourth”), a genuine teacher's delight.",
+    vocab: [
+      { pl: "Która jest godzina?", en: "What time is it?", pron: "KTOO-rah yest goh-JEE-nah", tip: "Answer template: <i>Jest trzecia</i> (it's 3:00), <i>Jest wpół do piątej</i> (it's 4:30 — literally “half to five,” like German)." },
+      { pl: "poniedziałek, wtorek, środa", en: "Monday, Tuesday, Wednesday", pron: "poh-nyeh-JAH-wek / FTOH-rek / SHROH-dah", tip: "<i>Środa</i> = “the middle one.” Polish weekday names are wonderfully logical." },
+      { pl: "czwartek, piątek, sobota, niedziela", en: "Thursday, Friday, Saturday, Sunday", pron: "CHFAR-tek / PYON-tek / soh-BOH-tah / nyeh-JEH-lah", tip: "<i>Czwartek</i> = “the fourth,” <i>piątek</i> = “the fifth.” Teacher's delight: a numbered system." },
+      { pl: "dzisiaj / jutro / wczoraj", en: "today / tomorrow / yesterday", pron: "JEE-shai / YOO-troh / FCHOH-rai", tip: "<i>Do jutra!</i> = See you tomorrow!" },
+      { pl: "w poniedziałek", en: "on Monday", pron: "f poh-nyeh-JAH-wek", tip: "<i>W</i> + day = “on ___day.” <i>W weekend</i> works too — yes, Polish borrowed “weekend.”" },
+      { pl: "Kiedy?", en: "When?", pron: "KYEH-dih", tip: "<i>Kiedy masz czas?</i> = When do you have time?" },
+      { pl: "Czy masz czas w sobotę?", en: "Are you free on Saturday?", pron: "chih mahsh chahs f soh-BOH-teh", tip: "Literally “do you have time.” The standard way to propose meeting." },
+      { pl: "Może kawa?", en: "Coffee, maybe?", pron: "MOH-zheh KAH-vah", tip: "<i>Może</i> (maybe) softens invitations — very natural, very Polish." },
+      { pl: "Spotkajmy się o piątej", en: "Let's meet at five", pron: "spot-KAI-mih sheh oh PYON-tey", tip: "<i>O</i> + hour = “at ___ o'clock.”" },
+      { pl: "Niestety, nie mogę", en: "Unfortunately, I can't", pron: "nyes-TEH-tih nyeh MOH-geh", tip: "Softens refusals. Follow with <i>Może jutro?</i> (Maybe tomorrow?)." },
+      { pl: "Świetnie! / Super!", en: "Great!", pron: "SHFYET-nyeh / SOO-per", tip: "Enthusiastic agreement. <i>Super</i> is used constantly in casual speech." },
+      { pl: "styczeń ... grudzień", en: "January ... December", pron: "STIH-chen ... GROO-jen", tip: "Polish months aren't Latin-based: <i>styczeń, luty, marzec, kwiecień, maj, czerwiec, lipiec, sierpień, wrzesień, październik, listopad, grudzień.</i> Learn 3 per day; <i>listopad</i> = “leaf-fall” (November)." }
+    ],
+    grammar: {
+      title: "Telling the time with feminine ordinals",
+      html: "<p>Hours use <b>ordinal numbers in feminine form</b> (because <i>godzina</i>, hour, is feminine):</p><div class='mini-table'><table><thead><tr><th>Time</th><th>Polish</th></tr></thead><tbody><tr><td>1:00</td><td>pierwsza</td></tr><tr><td>2:00</td><td>druga</td></tr><tr><td>3:00</td><td>trzecia</td></tr><tr><td>4:00</td><td>czwarta</td></tr><tr><td>5:00</td><td>piąta</td></tr></tbody></table></div><p>Learn to say your daily schedule: <i>Zaczynam pracę o ósmej, kończę o czwartej</i> (I start work at 8, finish at 4).</p>"
+    },
+    dialogue: [
+      { pl: "Cześć! Czy masz czas w sobotę?", en: "Hi! Are you free on Saturday?" },
+      { pl: "Niestety, w sobotę nie mogę. Może w niedzielę?", en: "Unfortunately I can't on Saturday. Maybe Sunday?" },
+      { pl: "Super! Może kawa? Spotkajmy się o trzeciej na rynku.", en: "Great! Coffee maybe? Let's meet at three on the square." },
+      { pl: "Świetnie! Do niedzieli!", en: "Great! See you Sunday!" }
+    ],
+    practice: [
+      { type: "choice", q: "Which day is “środa”?", options: ["Tuesday", "Wednesday", "Thursday", "Saturday"], answer: 1, explain: "Środa = Wednesday, “the middle one.” Czwartek = “the fourth” (Thursday), piątek = “the fifth” (Friday)." },
+      { type: "type", q: "Say goodbye until tomorrow: “See you tomorrow!”", answer: "Do jutra!", accept: ["do jutra", "do jutra!"], explain: "Do jutra! — from jutro (tomorrow)." },
+      { type: "choice", q: "“Let's meet at five” uses which pattern for the hour?", options: ["na + piąta", "o + piątej", "w + piąty", "do + pięć"], answer: 1, explain: "O + hour = at ___ o'clock: Spotkajmy się o piątej." },
+      { type: "choice", q: "You can't make it Saturday. The soft, polite refusal is:", options: ["Nie.", "Niestety, nie mogę", "To jest za drogie", "Nie rozumiem"], answer: 1, explain: "Niestety, nie mogę softens the refusal. Follow with Może jutro? (Maybe tomorrow?)." },
+      { type: "type", q: "Ask the time: “What time is it?”", answer: "Która jest godzina?", accept: ["ktora jest godzina", "która jest godzina", "ktora jest godzina?", "która jest godzina?"], explain: "Która jest godzina? Answer: Jest trzecia (3:00), Jest wpół do piątej (4:30 — “half to five”)." }
+    ],
+    summary: [
+      "Hours are feminine ordinals (godzina is feminine): pierwsza, druga, trzecia... and o + hour = at ___ o'clock.",
+      "Wpół do piątej = 4:30, literally “half to five,” like German.",
+      "W + day = on ___day (w poniedziałek, w sobotę, and even w weekend).",
+      "Invitation kit: Czy masz czas...? + Może kawa? + Spotkajmy się o... — refuse softly with Niestety, nie mogę.",
+      "Months are native Polish, not Latin: styczeń through grudzień; listopad = “leaf-fall.”"
+    ]
+  },
+
+  /* ================= WEEK 10 ================= */
+  {
+    week: 10,
+    title: "Likes, Hobbies & Weather",
+    subtitle: "Small Talk That Works",
+    goal: "Express preferences with lubić and handle the world's favorite topic: weather.",
+    intro: "Lubię — I like — is the most versatile verb at A1, and this week it powers everything: hobbies, preferences, and small talk. Add weather phrases (Polish winters guarantee you'll need them) and the biggest expressiveness-per-effort trick in the language: verb + infinitive chains.",
+    vocab: [
+      { pl: "Lubię...", en: "I like...", pron: "LOO-byeh", tip: "The most versatile A1 verb: <i>lubię</i> + noun or + infinitive both work." },
+      { pl: "Lubię czytać", en: "I like reading", pron: "LOO-byeh CHIH-tahch", tip: "<i>Lubić</i> + infinitive: <i>lubię gotować</i> (cooking), <i>podróżować</i> (traveling), <i>pływać</i> (swimming)." },
+      { pl: "Nie lubię...", en: "I don't like...", pron: "nyeh LOO-byeh", tip: "<i>Nie lubię poniedziałków</i> — I don't like Mondays. Universally understood." },
+      { pl: "Uwielbiam...", en: "I love...", pron: "oo-VYEL-byahm", tip: "Stronger than <i>lubię.</i> For people, use <i>kocham</i> (KOH-hahm) — reserve it for family and partners." },
+      { pl: "Wolę kawę niż herbatę", en: "I prefer coffee to tea", pron: "VOH-leh KAH-veh neezh her-BAH-teh", tip: "<i>Wolę X niż Y</i> — a great pattern for classroom-style comparisons." },
+      { pl: "Co lubisz robić w wolnym czasie?", en: "What do you like doing in your free time?", pron: "tsoh LOO-beesh ROH-beech v VOL-nihm CHAH-sheh", tip: "The classic getting-to-know-you question." },
+      { pl: "Interesuję się...", en: "I'm interested in...", pron: "een-teh-reh-SOO-yeh sheh", tip: "<i>Interesuję się historią / muzyką / sportem.</i>" },
+      { pl: "Jaka jest pogoda?", en: "What's the weather like?", pron: "YAH-kah yest poh-GOH-dah", tip: "Weather talk is as safe an opener in Poland as anywhere." },
+      { pl: "Jest słonecznie / pochmurno", en: "It's sunny / cloudy", pron: "yest swoh-NECH-nyeh / poh-HMOOR-noh", tip: "<i>Jest</i> + weather word covers almost everything." },
+      { pl: "Pada deszcz / śnieg", en: "It's raining / snowing", pron: "PAH-dah deshch / shnyek", tip: "Literally “rain falls / snow falls.” Polish winters guarantee you'll use both." },
+      { pl: "Jest zimno / ciepło / gorąco", en: "It's cold / warm / hot", pron: "yest ZHEEM-noh / CHEP-woh / goh-RON-tsoh", tip: "<i>Ale zimno!</i> = “So cold!” — an exclamation you'll hear from October to March." },
+      { pl: "gram w piłkę / gram na gitarze", en: "I play football / I play guitar", pron: "grahm f PEEW-keh / grahm nah gee-TAH-zheh", tip: "Like English: <i>grać w</i> + sport, <i>grać na</i> + instrument." }
+    ],
+    grammar: {
+      title: "Verb + infinitive chains: the biggest trade in the language",
+      html: "<p>Verb + infinitive chains (<i>lubię gotować, chcę czytać, muszę pracować</i>) — three “helper” verbs that let you multiply every verb you know <b>without new conjugations</b>:</p><div class='mini-table'><table><thead><tr><th>Helper verb</th><th>Meaning</th><th>Example</th></tr></thead><tbody><tr><td><b>lubić</b></td><td>to like</td><td>lubię gotować — I like cooking</td></tr><tr><td><b>chcieć</b></td><td>to want</td><td>chcę czytać — I want to read</td></tr><tr><td><b>musieć</b></td><td>to have to</td><td>muszę pracować — I have to work</td></tr></tbody></table></div><p>This is the biggest expressiveness-per-effort trade in the language.</p>"
+    },
+    dialogue: [
+      { pl: "Co lubisz robić w wolnym czasie?", en: "What do you like doing in your free time?" },
+      { pl: "Lubię czytać i gotować. A ty?", en: "I like reading and cooking. And you?" },
+      { pl: "Ja uwielbiam podróżować, ale nie lubię zimy.", en: "I love traveling, but I don't like winter." },
+      { pl: "Ja też! Ale zimno dzisiaj!", en: "Me too! It's so cold today!" }
+    ],
+    practice: [
+      { type: "choice", q: "Stronger than “lubię,” but not reserved for family:", options: ["kocham", "uwielbiam", "wolę", "muszę"], answer: 1, explain: "Uwielbiam = I love (things/activities). Kocham is for people — reserve it for family and partners." },
+      { type: "type", q: "Look outside — it's raining. Say it in Polish.", answer: "Pada deszcz", accept: ["pada deszcz"], explain: "Pada deszcz — literally “rain falls.” Pada śnieg = it's snowing." },
+      { type: "choice", q: "You play guitar. In Polish:", options: ["gram w gitarę", "gram na gitarze", "gram do gitary", "gram gitara"], answer: 1, explain: "Grać w + sport (gram w piłkę), grać na + instrument (gram na gitarze)." },
+      { type: "choice", q: "“Wolę kawę niż herbatę” means:", options: ["I drink coffee with tea", "I prefer coffee to tea", "I want coffee and tea", "Coffee is better than me"], answer: 1, explain: "Wolę X niż Y = I prefer X to Y — a great pattern for comparisons." },
+      { type: "type", q: "Chain a helper verb: say “I like reading.”", answer: "Lubię czytać", accept: ["lubie czytac", "lubię czytać", "lubie czytać", "lubię czytac"], explain: "Lubię + infinitive. The helper verbs lubić, chcieć, musieć multiply every verb you know." }
+    ],
+    summary: [
+      "Lubię works with nouns and infinitives; uwielbiam is stronger; kocham is for people only.",
+      "Helper-verb chains (lubię / chcę / muszę + infinitive) multiply your verbs with zero new conjugations.",
+      "Wolę X niż Y = I prefer X to Y.",
+      "Weather kit: Jest + word (słonecznie, pochmurno, zimno, ciepło, gorąco); Pada deszcz/śnieg.",
+      "Grać w + sport, grać na + instrument — just like English play patterns."
+    ]
+  },
+
+  /* ================= WEEK 11 ================= */
+  {
+    week: 11,
+    title: "Travel & the Past Tense",
+    subtitle: "(Gently)",
+    goal: "Manage a trip within Poland and start telling simple stories about what you did.",
+    intro: "Pack your bags: this week covers trains, hotels and sightseeing — and gives you your first past tense, gently. With just two endings (-łem for men, -łam for women) you can start telling stories about what you did. By Friday you'll answer the great Monday-morning question of every Polish workplace: Gdzie byłeś/byłaś w weekend?",
+    vocab: [
+      { pl: "Chcę pojechać do Krakowa", en: "I want to go to Kraków", pron: "htseh poh-YEH-hahch doh krah-KOH-vah", tip: "<i>Chcę</i> + infinitive, straight from Week 10's pattern." },
+      { pl: "O której odjeżdża pociąg?", en: "What time does the train leave?", pron: "oh KTOO-rey od-YEZH-jah POH-chonk", tip: "For a bus: <i>autobus</i> (ow-TOH-boos). Listen for the answer using Week 9 hours." },
+      { pl: "z którego peronu?", en: "From which platform?", pron: "s ktoo-REH-goh peh-ROH-noo", tip: "<i>Peron</i> = platform, <i>tor</i> = track — both appear on station boards." },
+      { pl: "Mam rezerwację", en: "I have a reservation", pron: "mahm reh-zer-VAHTS-yeh", tip: "Works at hotels and restaurants alike." },
+      { pl: "pokój jednoosobowy / dwuosobowy", en: "single / double room", pron: "POH-kooy yed-noh-oh-soh-BOH-vih / dvoo-oh-soh-BOH-vih", tip: "<i>Ze śniadaniem?</i> = with breakfast? (You want to hear <i>tak</i>.)" },
+      { pl: "Byłem / Byłam w Warszawie", en: "I was in Warsaw (m/f)", pron: "BIH-wem / BIH-wahm v var-SHAH-vyeh", tip: "Your first past tense! Men say <i>byłem</i>, women say <i>byłam.</i>" },
+      { pl: "Widziałem / Widziałam...", en: "I saw... (m/f)", pron: "vee-JAH-wem / vee-JAH-wahm", tip: "<i>Widziałam zamek</i> = I saw the castle." },
+      { pl: "Było świetnie!", en: "It was great!", pron: "BIH-woh SHFYET-nyeh", tip: "The all-purpose trip review. <i>Było pięknie</i> = it was beautiful." },
+      { pl: "Jechałem / Jechałam pociągiem", en: "I went by train (m/f)", pron: "yeh-HAH-wem / yeh-HAH-wahm poh-CHON-gyem", tip: "<i>Autobusem</i> = by bus, <i>samochodem</i> = by car, <i>samolotem</i> = by plane." },
+      { pl: "Zwiedzałem / Zwiedzałam stare miasto", en: "I visited the old town (m/f)", pron: "zvyeh-DZAH-wem / zvyeh-DZAH-wahm STAH-reh MYAHS-toh", tip: "<i>Zwiedzać</i> = to sightsee — a word you'll use in every Polish city." },
+      { pl: "Gdzie byłeś / byłaś w weekend?", en: "Where were you at the weekend? (m/f)", pron: "g-jeh BIH-wesh / BIH-wahsh v week-END", tip: "The Monday-morning question in every Polish workplace and staffroom." },
+      { pl: "To był wspaniały dzień", en: "It was a wonderful day", pron: "toh bihw fspah-NYAH-wih jen", tip: "A lovely closing line for any story." }
+    ],
+    grammar: {
+      title: "Past tense, A1 edition",
+      html: "<p>Past tense, A1 edition: take the verb stem, add <b>-łem</b> (male speaker) or <b>-łam</b> (female speaker) for “I”, and <b>-łeś / -łaś</b> for informal “you.”</p><div class='mini-table'><table><thead><tr><th></th><th>Male speaker</th><th>Female speaker</th></tr></thead><tbody><tr><td>I was</td><td>był<b>em</b></td><td>był<b>am</b></td></tr><tr><td>I saw</td><td>widział<b>em</b></td><td>widział<b>am</b></td></tr><tr><td>I went (by vehicle)</td><td>jechał<b>em</b></td><td>jechał<b>am</b></td></tr><tr><td>you were (informal)</td><td>był<b>eś</b></td><td>był<b>aś</b></td></tr></tbody></table></div><p>That's genuinely all you need to tell stories at this level. Write 5 sentences about last weekend using <i>byłem/byłam, widziałem/widziałam, jechałem/jechałam.</i></p>"
+    },
+    dialogue: [
+      { pl: "Gdzie byłaś w weekend?", en: "Where were you at the weekend?" },
+      { pl: "Byłam w Gdańsku. Jechałam pociągiem.", en: "I was in Gdańsk. I went by train." },
+      { pl: "I jak było?", en: "And how was it?" },
+      { pl: "Było świetnie! Zwiedzałam stare miasto i widziałam morze.", en: "It was great! I visited the old town and saw the sea." }
+    ],
+    practice: [
+      { type: "choice", q: "A woman says “I was in Warsaw”:", options: ["Byłem w Warszawie", "Byłam w Warszawie", "Było w Warszawie", "Byłaś w Warszawie"], answer: 1, explain: "Women say byłam, men say byłem — the past tense agrees with the speaker's gender." },
+      { type: "type", q: "Review your trip in two words: “It was great!”", answer: "Było świetnie!", accept: ["bylo swietnie", "było świetnie", "bylo swietnie!", "było świetnie!"], explain: "Było świetnie! The all-purpose trip review. Było pięknie = it was beautiful." },
+      { type: "choice", q: "“I went by train” — which word means “by train”?", options: ["pociąg", "pociągiem", "peronem", "biletem"], answer: 1, explain: "Jechałem/Jechałam pociągiem. Autobusem = by bus, samochodem = by car, samolotem = by plane." },
+      { type: "choice", q: "The past-tense ending for “I” when the speaker is male:", options: ["-łam", "-łem", "-łaś", "-ło"], answer: 1, explain: "-łem for a male speaker, -łam for a female speaker; -łeś/-łaś for informal “you.”" },
+      { type: "type", q: "At the hotel desk, say: “I have a reservation.”", answer: "Mam rezerwację", accept: ["mam rezerwacje", "mam rezerwację"], explain: "Mam rezerwację — works at hotels and restaurants alike." }
+    ],
+    summary: [
+      "First past tense: stem + -łem (male) / -łam (female) for “I”; -łeś/-łaś for informal “you.”",
+      "Story kit: byłem/byłam, widziałem/widziałam, jechałem/jechałam, zwiedzałem/zwiedzałam.",
+      "Transport instrumentals: pociągiem, autobusem, samochodem, samolotem.",
+      "Hotel kit: Mam rezerwację, pokój jednoosobowy/dwuosobowy, ze śniadaniem?",
+      "The Monday-morning question: Gdzie byłeś/byłaś w weekend? — Było świetnie!"
+    ]
+  },
+
+  /* ================= WEEK 12 ================= */
+  {
+    week: 12,
+    title: "Consolidation & Emergencies",
+    subtitle: "Your A1 Exam",
+    goal: "Fill the safety-critical gaps, then prove to yourself you've reached A1.",
+    intro: "The final week fills the safety-critical gaps — health, emergencies, lost documents — and hands you the two “power tool” phrases that turn every Pole you meet into your tutor. Then, instead of new grammar, you'll run a full self-assessment across all twelve weeks. Finish it, pass the quiz, and your certificate awaits. Powodzenia!",
+    vocab: [
+      { pl: "Pomocy!", en: "Help!", pron: "poh-MOH-tsih", tip: "The emergency shout. Calmer version: <i>Czy może mi pan/pani pomóc?</i> (Can you help me?)" },
+      { pl: "Źle się czuję", en: "I feel unwell", pron: "zhleh sheh CHOO-yeh", tip: "<i>Dobrze się czuję</i> = I feel fine." },
+      { pl: "Boli mnie głowa / brzuch / gardło", en: "My head / stomach / throat hurts", pron: "BOH-lee mnyeh GWOH-vah / bzhooh / GARD-woh", tip: "Literally “it hurts me the head.” Point and say — pharmacists will handle the rest." },
+      { pl: "Potrzebuję lekarza", en: "I need a doctor", pron: "poh-tsheh-BOO-yeh leh-KAH-zhah", tip: "Emergency number in Poland (and the EU): <b>112</b>." },
+      { pl: "Zgubiłem / Zgubiłam paszport", en: "I lost my passport (m/f)", pron: "zgoo-BEE-wem / zgoo-BEE-wahm PAHSH-port", tip: "Your Week 11 past tense doing real work. <i>Portfel</i> = wallet, <i>telefon</i> = phone." },
+      { pl: "Czy może pan/pani mówić wolniej?", en: "Could you speak more slowly?", pron: "chih MOH-zheh pahn/PAH-nee MOO-veech VOL-nyey", tip: "Upgrade of Week 1's survival kit — politer and more precise." },
+      { pl: "Jak to się mówi po polsku?", en: "How do you say that in Polish?", pron: "yahk toh sheh MOO-vee poh POL-skoo", tip: "The learner's power tool: turns every Pole you meet into your tutor." },
+      { pl: "Co znaczy...?", en: "What does ... mean?", pron: "tsoh ZNAH-chih", tip: "The other half of the power tool." },
+      { pl: "Wszystkiego najlepszego!", en: "All the best! / Happy birthday!", pron: "fshist-KYEH-goh nai-lep-SHEH-goh", tip: "The universal celebration phrase — birthdays, holidays, farewells." },
+      { pl: "Na zdrowie!", en: "Cheers! / Bless you!", pron: "nah ZDROH-vyeh", tip: "Both a toast and the response to a sneeze." },
+      { pl: "Powodzenia!", en: "Good luck!", pron: "poh-voh-DZEH-nyah", tip: "What Poles will say when they learn you're studying their language." },
+      { pl: "Uczę się polskiego od trzech miesięcy", en: "I've been learning Polish for three months", pron: "OO-cheh sheh pol-SKYEH-goh ot tsheh myeh-SHEN-tsih", tip: "Say it proudly — because by now it's true." }
+    ],
+    grammar: {
+      title: "Days 3–6: Self-assessment instead of new grammar",
+      html: "<p>This week there's no new grammar. Instead, prove to yourself you've reached A1. You should be able to:</p><div class='checklist' id='selfAssessList'></div><p><b>Day 7:</b> Celebrate. <i>Wszystkiego najlepszego!</i></p>",
+      checklist: [
+        "Introduce yourself: name, origin, profession, age, family (Weeks 2–4)",
+        "Describe your daily routine in 6+ sentences (Week 5)",
+        "Role-play ordering a full meal, out loud, alone in your kitchen (Week 6)",
+        "Read prices and count to 1000 (Week 7)",
+        "Give simple directions from your home to the nearest shop (Week 8)",
+        "Arrange a meeting: propose a day, time, and place (Week 9)",
+        "State five likes/dislikes and describe today's weather (Week 10)",
+        "Tell a 5-sentence story about last weekend in the past tense (Week 11)"
+      ]
+    },
+    dialogue: [
+      { pl: "Przepraszam, czy może mi pani pomóc? Zgubiłem paszport.", en: "Excuse me, can you help me? I lost my passport." },
+      { pl: "Oczywiście! Czy może pan mówić wolniej?", en: "Of course! Could you speak more slowly?" },
+      { pl: "Zgubiłem paszport. Uczę się polskiego od trzech miesięcy.", en: "I lost my passport. I've been learning Polish for three months." },
+      { pl: "Mówi pan bardzo dobrze! Powodzenia!", en: "You speak very well! Good luck!" }
+    ],
+    practice: [
+      { type: "choice", q: "The emergency number in Poland (and the whole EU) is:", options: ["911", "999", "112", "100"], answer: 2, explain: "112 works everywhere in the EU. Potrzebuję lekarza = I need a doctor." },
+      { type: "type", q: "The emergency shout — one word:", answer: "Pomocy!", accept: ["pomocy", "pomocy!"], explain: "Pomocy! Calmer version: Czy może mi pan/pani pomóc? (Can you help me?)" },
+      { type: "choice", q: "“Na zdrowie!” is used:", options: ["Only as a toast", "Only after a sneeze", "As both a toast and after a sneeze", "Only at weddings"], answer: 2, explain: "Na zdrowie! covers both — cheers, and bless you." },
+      { type: "type", q: "The other half of the power tool: ask “What does ... mean?”", answer: "Co znaczy...?", accept: ["co znaczy", "co znaczy?", "co znaczy...", "co znaczy...?"], explain: "Co znaczy...? pairs with Jak to się mówi po polsku? — together they turn every Pole into your tutor." },
+      { type: "choice", q: "“Wszystkiego najlepszego!” is used for:", options: ["Ordering food", "Birthdays, holidays and farewells", "Asking directions", "Complaining"], answer: 1, explain: "The universal celebration phrase — all the best / happy birthday." }
+    ],
+    summary: [
+      "Emergency kit: Pomocy!, Źle się czuję, Boli mnie..., Potrzebuję lekarza — and 112.",
+      "Zgubiłem/Zgubiłam paszport — your Week 11 past tense doing real work.",
+      "Power tools: Jak to się mówi po polsku? + Co znaczy...? — every Pole becomes your tutor.",
+      "Celebration phrases: Wszystkiego najlepszego!, Na zdrowie!, Powodzenia!",
+      "Uczę się polskiego od trzech miesięcy — say it proudly, because by now it's true."
+    ]
+  }
+];
+
+const SECTIONS = ["intro", "vocab", "grammar", "dialogue", "practice", "quiz", "summary"];
+const SECTION_LABELS = {
+  intro: "Introduction",
+  vocab: "Vocabulary",
+  grammar: "Grammar",
+  dialogue: "Dialogue",
+  practice: "Practice",
+  quiz: "Quiz",
+  summary: "Summary"
+};
+const SECTION_ICONS = {
+  intro: "👋",
+  vocab: "📖",
+  grammar: "🧩",
+  dialogue: "💬",
+  practice: "✏️",
+  quiz: "🏆",
+  summary: "✅"
+};
+
+;
+/* ============================================================
+   quiz.js — Weekly quiz engine
+   Each weekly quiz = 3 handcrafted grammar/culture questions
+   + 5 vocabulary questions built from that week's table.
+   Pass mark: 70%. Passing all 12 unlocks the certificate.
+   ============================================================ */
+
+const QUIZ_BANK = {
+  1: [
+    { q: "How is the Polish combination “sz” pronounced?", options: ["like English ch", "like English sh", "like the s in pleasure", "like English v"], answer: 1, explain: "sz = sh. The five keys: sz = sh, cz = ch, rz/ż = zh, w = v, ł = w." },
+    { q: "Besides meaning “no,” what else does “nie” do?", options: ["It makes nouns plural", "It negates verbs (nie rozumiem)", "It makes questions", "Nothing else"], answer: 1, explain: "Nie also negates verbs: nie rozumiem = I don't understand." },
+    { q: "When is “Dobranoc” appropriate?", options: ["As a morning greeting", "Any time after lunch", "Only when parting for the night", "When entering a shop"], answer: 2, explain: "Dobranoc is only for parting at night — never as a greeting." }
+  ],
+  2: [
+    { q: "When do you switch from pan/pani to ty?", options: ["Immediately — it's friendlier", "When invited: “Mówmy sobie na ty”", "After exchanging names", "Never"], answer: 1, explain: "When in doubt, go formal. Poles will invite you to switch; switching too early feels presumptuous." },
+    { q: "Formal address in Polish uses pan/pani plus which verb form?", options: ["First person", "Second person", "Third person", "The infinitive"], answer: 2, explain: "Polish speaks about someone to be polite to them: pan/pani + third-person verb." },
+    { q: "Which reply to “Jak się masz?” is completely normal in Poland?", options: ["Tak sobie (so-so)", "Silence", "Nie rozumiem", "Do widzenia"], answer: 0, explain: "Poles answer honestly! Tak sobie is a perfectly normal reply." }
+  ],
+  3: [
+    { q: "Complete the conjugation of być — “we are”:", options: ["jesteście", "jesteśmy", "są", "jest"], answer: 1, explain: "jestem, jesteś, jest, jesteśmy, jesteście, są." },
+    { q: "What does adding “się” do in “uczę się”?", options: ["Makes it past tense", "Makes it a question", "Flips the direction: I teach → I learn", "Makes it formal"], answer: 2, explain: "uczę = I teach; uczę się = I teach myself = I learn." },
+    { q: "A tired woman says:", options: ["Jestem zmęczony", "Jestem zmęczona", "Jest zmęczone", "Są zmęczeni"], answer: 1, explain: "Adjectives agree with the speaker's gender: zmęczony (man) / zmęczona (woman)." }
+  ],
+  4: [
+    { q: "Conjugate mieć — “they have”:", options: ["mamy", "macie", "mają", "ma"], answer: 2, explain: "mam, masz, ma, mamy, macie, mają." },
+    { q: "Which noun takes “moje”?", options: ["brat", "siostra", "dziecko", "kot"], answer: 2, explain: "moje matches neuter nouns ending in -o/-e: moje dziecko." },
+    { q: "“Mam dwoje dzieci” means:", options: ["I have two dogs", "I have two children", "I am two years old", "I have no children"], answer: 1, explain: "Mam dwoje dzieci = I have two children. Nie mam dzieci = I don't have children." }
+  ],
+  5: [
+    { q: "Which verb follows Pattern 1 (-am, -asz, -a)?", options: ["pracuję", "piję", "oglądam", "uczę"], answer: 2, explain: "Pattern 1: czytam, mieszkam, oglądam. Pattern 2: pracuję, uczę, piję." },
+    { q: "“Gotuję” belongs to which conjugation pattern?", options: ["-am, -asz, -a", "-ę, -esz/-isz, -e/-i", "The past tense", "It's irregular"], answer: 1, explain: "gotuję, gotujesz, gotuje... is a model -ę/-esz verb." },
+    { q: "Where does “często” (often) go in a sentence?", options: ["Always at the end", "Right before the verb", "Right after the noun", "At the very start only"], answer: 1, explain: "Frequency words slot right before the verb: Często czytam." }
+  ],
+  6: [
+    { q: "The visible A1 accusative rule is:", options: ["Masculine adds -a", "Feminine -a becomes -ę", "Neuter drops -o", "All nouns add -em"], answer: 1, explain: "Feminine -a → -ę as a direct object: kawa → kawę. Masculine and neuter mostly stay unchanged at this level." },
+    { q: "Complete: Polecam ___ pomidorową. (zupa)", options: ["zupa", "zupę", "zupy", "zupo"], answer: 1, explain: "zupa → zupę after a verb, as a direct object." },
+    { q: "Why should you never say “pierogis”?", options: ["It's rude", "Pierogi is already plural", "It means something else", "Pierogi has no plural"], answer: 1, explain: "Pierogi is already plural — and Poles will adore you for knowing it." }
+  ],
+  7: [
+    { q: "Numbers 50–90 all end in:", options: ["-naście", "-dziesiąt", "-set", "-sto"], answer: 1, explain: "pięćdziesiąt, sześćdziesiąt... The teens (11–19) end in -naście." },
+    { q: "How do Polish price tags write twelve and a half zloty?", options: ["12.50 zł", "12,50 zł", "zł 12-50", "12:50 zł"], answer: 1, explain: "Poland uses a comma, not a decimal point: 12,50 zł. 100 groszy = 1 złoty." },
+    { q: "“Pół kilo” means:", options: ["A full kilo", "Half a kilo", "A quarter kilo", "A kilo and a half"], answer: 1, explain: "Pół kilo = half a kilo — markets sell by weight." }
+  ],
+  8: [
+    { q: "“W szkole” and “na rynku” are examples of which case?", options: ["Accusative", "Locative", "Nominative", "Genitive"], answer: 1, explain: "The locative, met as fixed phrases: w + place (in), na + place (at/on)." },
+    { q: "“Apteka jest obok banku” — where is the pharmacy?", options: ["Opposite the bank", "Inside the bank", "Next to the bank", "Far from the bank"], answer: 2, explain: "obok = next to; naprzeciwko = opposite." },
+    { q: "What's special about “muzeum”?", options: ["It's feminine", "As a neuter borrowed word it never changes endings", "It's always plural", "It has no pronunciation"], answer: 1, explain: "Neuter borrowed words like muzeum never change endings — enjoy them." }
+  ],
+  9: [
+    { q: "Why do hours use feminine ordinals (pierwsza, druga...)?", options: ["Tradition", "Because godzina (hour) is feminine", "They're actually masculine", "To sound polite"], answer: 1, explain: "Hours agree with godzina, which is feminine: pierwsza, druga, trzecia, czwarta, piąta..." },
+    { q: "“Jest wpół do piątej” means:", options: ["5:30", "4:30", "5:15", "4:45"], answer: 1, explain: "Literally “half to five,” like German — so 4:30." },
+    { q: "“Listopad” (November) literally means:", options: ["Frost month", "Leaf-fall", "Harvest", "Long night"], answer: 1, explain: "Polish months aren't Latin-based; listopad = “leaf-fall.”" }
+  ],
+  10: [
+    { q: "“Lubię” can be followed by:", options: ["Only nouns", "Only infinitives", "A noun or an infinitive — both work", "Only adjectives"], answer: 2, explain: "The most versatile A1 verb: lubię + noun or + infinitive both work." },
+    { q: "The three A1 helper verbs that chain with infinitives are:", options: ["być, mieć, iść", "lubić, chcieć, musieć", "czytać, pisać, mówić", "jeść, pić, spać"], answer: 1, explain: "lubić (to like), chcieć (to want), musieć (to have to) — the biggest expressiveness-per-effort trade in the language." },
+    { q: "“Kocham” should be reserved for:", options: ["Food you love", "Hobbies", "Family and partners", "The weather"], answer: 2, explain: "For things use uwielbiam; kocham is for people — family and partners." }
+  ],
+  11: [
+    { q: "A woman says “I saw the castle”:", options: ["Widziałem zamek", "Widziałam zamek", "Widziało zamek", "Widziałaś zamek"], answer: 1, explain: "Female speakers use -łam: Widziałam zamek." },
+    { q: "The endings -łeś / -łaś mark:", options: ["Formal “you” in the present", "Informal “you” in the past (m/f)", "“We” in the past", "The future tense"], answer: 1, explain: "-łem/-łam = I (m/f); -łeś/-łaś = informal you (m/f). That's all you need at A1." },
+    { q: "“Samochodem” means:", options: ["by plane", "by bus", "by car", "by train"], answer: 2, explain: "pociągiem = by train, autobusem = by bus, samochodem = by car, samolotem = by plane." }
+  ],
+  12: [
+    { q: "The polite upgrade of Week 1's survival kit is:", options: ["Pomocy!", "Czy może pan/pani mówić wolniej?", "Nie!", "Na zdrowie!"], answer: 1, explain: "Czy może pan/pani mówić wolniej? — politer and more precise than the Week 1 basics." },
+    { q: "Which phrase turns every Pole you meet into your tutor?", options: ["Jak to się mówi po polsku?", "To jest za drogie", "Poproszę rachunek", "Do widzenia"], answer: 0, explain: "Jak to się mówi po polsku? — the learner's power tool, paired with Co znaczy...?" },
+    { q: "What will Poles say when they learn you're studying their language?", options: ["Smacznego!", "Powodzenia!", "Dobranoc!", "Tak sobie"], answer: 1, explain: "Powodzenia! = Good luck!" }
+  ]
+};
+
+const QUIZ_PASS_MARK = 0.7;
+const QUIZ_VOCAB_COUNT = 5;
+
+/* ---------- Question building ---------- */
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function shortPl(entry) {
+  // Use only the headword for very long list-entries (e.g. the numbers row)
+  if (entry.pl.length > 42) return entry.pl.split(":")[0];
+  return entry.pl;
+}
+
+function buildVocabQuestions(week) {
+  const data = CURRICULUM.find(w => w.week === week);
+  if (!data) return [];
+  const pool = data.vocab.filter(v => v.pl.length <= 60);
+  const chosen = shuffleArray(pool).slice(0, QUIZ_VOCAB_COUNT);
+
+  return chosen.map(entry => {
+    const distractors = shuffleArray(pool.filter(v => v !== entry))
+      .slice(0, 3)
+      .map(v => v.en);
+    const options = shuffleArray([entry.en, ...distractors]);
+    return {
+      q: `What does “${shortPl(entry)}” mean?`,
+      speak: shortPl(entry),
+      options,
+      answer: options.indexOf(entry.en),
+      explain: `${shortPl(entry)} — ${entry.en} (${entry.pron}).`
+    };
+  });
+}
+
+function buildQuiz(week) {
+  const handcrafted = (QUIZ_BANK[week] || []).map(q => ({ ...q }));
+  const vocabQs = buildVocabQuestions(week);
+  return shuffleArray([...handcrafted, ...vocabQs]);
+}
+
+/* ---------- Quiz runtime state ---------- */
+
+let activeQuiz = null; // { week, questions, index, correct, answered }
+
+function startQuiz(week) {
+  activeQuiz = {
+    week,
+    questions: buildQuiz(week),
+    index: 0,
+    correct: 0,
+    answered: false
+  };
+  renderQuizQuestion();
+}
+
+function quizContainer() {
+  return document.getElementById("quizArea");
+}
+
+function renderQuizIntro(week) {
+  const container = quizContainer();
+  if (!container) return;
+  const state = loadState();
+  const prev = state.quizScores[week];
+  const total = (QUIZ_BANK[week] || []).length + QUIZ_VOCAB_COUNT;
+
+  container.innerHTML = `
+    <div class="quiz-intro card glass fade-in">
+      <div class="quiz-intro-icon">🏆</div>
+      <h3>Week ${week} Quiz</h3>
+      <p>${total} questions · pass mark ${Math.round(QUIZ_PASS_MARK * 100)}% · +5 XP per correct answer, +50 XP bonus for your first pass.</p>
+      ${prev ? `<p class="quiz-best">Best score so far: <b>${prev.best}/${prev.total}</b> ${prev.passed ? "· <span class='pass-chip'>Passed ✓</span>" : ""}</p>` : "<p class='quiz-best'>You haven't taken this quiz yet.</p>"}
+      <button class="btn btn-primary btn-lg" onclick="startQuiz(${week})">${prev ? "Retake quiz" : "Start quiz"}</button>
+    </div>`;
+}
+
+function renderQuizQuestion() {
+  const container = quizContainer();
+  if (!container || !activeQuiz) return;
+  const { questions, index } = activeQuiz;
+  const q = questions[index];
+  const progressPct = (index / questions.length) * 100;
+
+  container.innerHTML = `
+    <div class="quiz-run card glass fade-in">
+      <div class="quiz-top">
+        <span class="quiz-count">Question ${index + 1} of ${questions.length}</span>
+        <span class="quiz-score-live">✔ ${activeQuiz.correct}</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${progressPct}%"></div></div>
+      <h3 class="quiz-question">${q.q}
+        ${q.speak ? `<button class="tts-btn" title="Listen" aria-label="Listen to pronunciation" onclick="speakPolish('${q.speak.replace(/'/g, "\\'")}')">🔊</button>` : ""}
+      </h3>
+      <div class="quiz-options" id="quizOptions">
+        ${q.options.map((opt, i) =>
+          `<button class="quiz-option" data-index="${i}" onclick="answerQuiz(${i})">${opt}</button>`
+        ).join("")}
+      </div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-actions">
+        <button class="btn btn-primary" id="quizNextBtn" style="display:none" onclick="nextQuizQuestion()">
+          ${index === questions.length - 1 ? "See results" : "Next question"} →
+        </button>
+      </div>
+    </div>`;
+  activeQuiz.answered = false;
+}
+
+function answerQuiz(choice) {
+  if (!activeQuiz || activeQuiz.answered) return;
+  activeQuiz.answered = true;
+
+  const q = activeQuiz.questions[activeQuiz.index];
+  const buttons = document.querySelectorAll("#quizOptions .quiz-option");
+  const feedback = document.getElementById("quizFeedback");
+  const nextBtn = document.getElementById("quizNextBtn");
+  const correct = choice === q.answer;
+
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.answer) btn.classList.add("correct");
+    if (i === choice && !correct) btn.classList.add("wrong");
+  });
+
+  if (correct) {
+    activeQuiz.correct++;
+    addXP(5, "Correct answer");
+    feedback.innerHTML = `<div class="feedback ok">✔ Correct! ${q.explain}</div>`;
+  } else {
+    feedback.innerHTML = `<div class="feedback bad">✘ Not quite. ${q.explain}</div>`;
+  }
+  nextBtn.style.display = "inline-flex";
+  nextBtn.focus();
+}
+
+function nextQuizQuestion() {
+  if (!activeQuiz) return;
+  activeQuiz.index++;
+  if (activeQuiz.index >= activeQuiz.questions.length) {
+    finishQuiz();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+function finishQuiz() {
+  const { week, correct, questions } = activeQuiz;
+  const total = questions.length;
+  const passed = correct / total >= QUIZ_PASS_MARK;
+  const state = loadState();
+  const prev = state.quizScores[week];
+  const firstPass = passed && (!prev || !prev.passed);
+
+  state.quizScores[week] = {
+    score: correct,
+    total,
+    best: Math.max(correct, prev ? prev.best : 0),
+    passed: passed || (prev ? prev.passed : false)
+  };
+  saveState(state);
+
+  if (firstPass) {
+    addXP(50, "Quiz passed");
+    markSectionDone(week, "quiz", true);
+  }
+
+  const allPassed = CURRICULUM.every(w => state.quizScores[w.week] && state.quizScores[w.week].passed);
+
+  const container = quizContainer();
+  container.innerHTML = `
+    <div class="quiz-result card glass fade-in ${passed ? "quiz-passed" : "quiz-failed"}">
+      <div class="quiz-result-icon">${passed ? "🎉" : "💪"}</div>
+      <h3>${passed ? "Quiz passed!" : "Almost there"}</h3>
+      <div class="quiz-score-big">${correct} / ${total}</div>
+      <p>${passed
+        ? (week === 12 && allPassed
+            ? "That was the final quiz — your certificate is ready! Wszystkiego najlepszego!"
+            : "Świetnie! Great work. On to the summary — or straight to the next week.")
+        : `You need ${Math.ceil(total * QUIZ_PASS_MARK)} correct to pass. Review the vocabulary and grammar, then try again — Powodzenia!`}</p>
+      <div class="quiz-result-actions">
+        <button class="btn btn-ghost" onclick="startQuiz(${week})">Retake</button>
+        ${passed
+          ? (week === 12 && allPassed
+              ? `<button class="btn btn-gold btn-lg" onclick="showCertificate()">🎓 View certificate</button>`
+              : `<button class="btn btn-primary" onclick="goToSection('summary')">Continue to summary →</button>`)
+          : `<button class="btn btn-primary" onclick="goToSection('vocab')">Review vocabulary</button>`}
+      </div>
+    </div>`;
+
+  activeQuiz = null;
+  refreshSidebar();
+  updateGlobalProgress();
+  updateStatsBar();
+}
+
+;
+/* ============================================================
+   script.js — PolskiPath app logic
+   State, routing, rendering, XP/streak, TTS, search,
+   flashcards, practice engine, certificate, shortcuts.
+   Depends on lessons.js (CURRICULUM, GUIDE, SECTIONS…) and
+   quiz.js (renderQuizIntro, startQuiz…).
+   ============================================================ */
+
+/* ---------------- State ---------------- */
+
+const STORAGE_KEY = "polskipath-state-v1";
+
+const DEFAULT_STATE = {
+  xp: 0,
+  streak: 0,
+  lastActive: null,          // "YYYY-MM-DD"
+  started: false,
+  theme: "light",
+  name: "",
+  completed: {},             // { "1:vocab": true, ... }
+  quizScores: {},            // { 1: {score,total,best,passed}, ... }
+  selfAssess: {},            // { 0: true, ... } week-12 checklist
+  practiceDone: {},          // { "1:0": true } exercise completion
+  lastWeek: 1,
+  lastSection: "intro"
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { ...DEFAULT_STATE };
+    return { ...DEFAULT_STATE, ...JSON.parse(raw) };
+  } catch (e) {
+    return { ...DEFAULT_STATE };
+  }
+}
+
+function saveState(state) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    /* storage unavailable (private mode) — app still works for the session */
+  }
+}
+
+function updateState(patch) {
+  const state = loadState();
+  Object.assign(state, patch);
+  saveState(state);
+  return state;
+}
+
+/* ---------------- Streak ---------------- */
+
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+function touchStreak() {
+  const state = loadState();
+  const today = todayStr();
+  if (state.lastActive === today) return state;
+
+  if (state.lastActive) {
+    const last = new Date(state.lastActive + "T00:00:00");
+    const now = new Date(today + "T00:00:00");
+    const diffDays = Math.round((now - last) / 86400000);
+    if (diffDays === 1) {
+      state.streak += 1;
+      showToast(`🔥 Streak: ${state.streak} day${state.streak === 1 ? "" : "s"}! Świetnie!`);
+    } else {
+      state.streak = 1;
+      if (diffDays > 1) showToast("🔥 New streak started — welcome back!");
+    }
+  } else {
+    state.streak = 1;
+  }
+  state.lastActive = today;
+  saveState(state);
+  return state;
+}
+
+/* ---------------- XP ---------------- */
+
+function addXP(amount, reason) {
+  const state = loadState();
+  state.xp += amount;
+  saveState(state);
+  updateStatsBar(true);
+  if (reason && amount >= 10) showToast(`⚡ +${amount} XP · ${reason}`);
+}
+
+/* ---------------- Toast ---------------- */
+
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+}
+
+/* ---------------- Theme ---------------- */
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  const icon = theme === "dark" ? "☀️" : "🌙";
+  const btn = document.getElementById("themeBtn");
+  const landingBtn = document.getElementById("landingThemeBtn");
+  if (btn) btn.textContent = icon;
+  if (landingBtn) landingBtn.textContent = icon;
+}
+
+function toggleTheme() {
+  const state = loadState();
+  const next = state.theme === "dark" ? "light" : "dark";
+  updateState({ theme: next });
+  applyTheme(next);
+}
+
+/* ---------------- Text-to-speech ---------------- */
+
+let polishVoice = null;
+
+function pickPolishVoice() {
+  if (!("speechSynthesis" in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  polishVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("pl")) || null;
+}
+
+function speakPolish(text, buttonEl) {
+  if (!("speechSynthesis" in window)) {
+    showToast("Speech isn't supported in this browser.");
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const clean = String(text).replace(/<[^>]*>/g, "");
+  const utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = "pl-PL";
+  utter.rate = 0.85;
+  if (!polishVoice) pickPolishVoice();
+  if (polishVoice) utter.voice = polishVoice;
+
+  if (buttonEl) {
+    buttonEl.classList.add("speaking");
+    utter.onend = () => buttonEl.classList.remove("speaking");
+    utter.onerror = () => buttonEl.classList.remove("speaking");
+  }
+  window.speechSynthesis.speak(utter);
+}
+
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.onvoiceschanged = pickPolishVoice;
+  pickPolishVoice();
+}
+
+/* ---------------- Answer normalisation ---------------- */
+
+const PL_MAP = { "ą": "a", "ć": "c", "ę": "e", "ł": "l", "ń": "n", "ó": "o", "ś": "s", "ź": "z", "ż": "z" };
+
+function normalizeAnswer(str) {
+  return String(str)
+    .toLowerCase()
+    .trim()
+    .replace(/[ąćęłńóśźż]/g, ch => PL_MAP[ch])
+    .replace(/[.,!?;:'"„”…]/g, "")
+    .replace(/\s+/g, " ");
+}
+
+function answersMatch(given, exercise) {
+  const g = normalizeAnswer(given);
+  if (!g) return false;
+  const candidates = [exercise.answer, ...(exercise.accept || [])];
+  return candidates.some(c => normalizeAnswer(c) === g);
+}
+
+/* ---------------- Progress helpers ---------------- */
+
+const TOTAL_SECTIONS = CURRICULUM.length * SECTIONS.length;
+
+function sectionKey(week, section) {
+  return `${week}:${section}`;
+}
+
+function isSectionDone(week, section) {
+  return !!loadState().completed[sectionKey(week, section)];
+}
+
+function markSectionDone(week, section, silent) {
+  const state = loadState();
+  const key = sectionKey(week, section);
+  if (state.completed[key]) return false;
+  state.completed[key] = true;
+  saveState(state);
+  if (!silent) addXP(10, `${SECTION_LABELS[section]} complete`);
+  refreshSidebar();
+  updateGlobalProgress();
+  return true;
+}
+
+function weekProgress(week) {
+  const done = SECTIONS.filter(s => isSectionDone(week, s)).length;
+  return { done, total: SECTIONS.length, pct: Math.round((done / SECTIONS.length) * 100) };
+}
+
+function courseProgressPct() {
+  const state = loadState();
+  const done = Object.keys(state.completed).length;
+  return Math.round((done / TOTAL_SECTIONS) * 100);
+}
+
+function updateGlobalProgress() {
+  const pct = courseProgressPct();
+  const bar = document.getElementById("globalProgressFill");
+  const sideFill = document.getElementById("sideProgressFill");
+  const sidePct = document.getElementById("sideProgressPct");
+  if (bar) bar.style.width = pct + "%";
+  if (sideFill) sideFill.style.width = pct + "%";
+  if (sidePct) sidePct.textContent = pct + "%";
+}
+
+function updateStatsBar(pop) {
+  const state = loadState();
+  const xpEl = document.getElementById("xpValue");
+  const streakEl = document.getElementById("streakValue");
+  if (xpEl) xpEl.textContent = state.xp;
+  if (streakEl) streakEl.textContent = state.streak;
+  if (pop) {
+    const pill = document.getElementById("xpPill");
+    if (pill) {
+      pill.classList.remove("pop");
+      void pill.offsetWidth; /* restart animation */
+      pill.classList.add("pop");
+    }
+  }
+}
+
+/* ---------------- Routing ---------------- */
+
+let currentView = "dashboard"; // dashboard | guide | week | certificate
+let currentWeek = 1;
+let currentSection = "intro";
+
+function contentEl() {
+  return document.getElementById("content");
+}
+
+function enterApp(view) {
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("app").classList.add("active");
+  updateState({ started: true });
+  touchStreak();
+  updateStatsBar();
+  refreshSidebar();
+  updateGlobalProgress();
+  if (view === "guide") showGuide();
+  else showDashboard();
+}
+
+function startLearning() {
+  const state = loadState();
+  document.getElementById("landing").classList.add("hidden");
+  document.getElementById("app").classList.add("active");
+  updateState({ started: true });
+  touchStreak();
+  updateStatsBar();
+  refreshSidebar();
+  updateGlobalProgress();
+  openWeek(state.lastWeek || 1, state.lastSection || "intro");
+}
+
+function setActiveSideLink(view, week) {
+  document.querySelectorAll(".side-link").forEach(l => {
+    l.classList.toggle("active", l.dataset.view === view);
+  });
+  document.querySelectorAll(".week-link").forEach(l => {
+    l.classList.toggle("active", view === "week" && Number(l.dataset.week) === week);
+  });
+}
+
+/* ---------------- Sidebar ---------------- */
+
+function refreshSidebar() {
+  const wrap = document.getElementById("weekLinks");
+  if (!wrap) return;
+  wrap.innerHTML = CURRICULUM.map(w => {
+    const p = weekProgress(w.week);
+    const done = p.done === p.total;
+    return `<button class="week-link ${done ? "done" : ""}" data-week="${w.week}" onclick="openWeek(${w.week})">
+      <span class="week-num">${done ? "✓" : w.week}</span>
+      <span class="week-label">${w.title}</span>
+      ${p.done > 0 && !done ? `<span class="week-check">${p.done}/${p.total}</span>` : ""}
+    </button>`;
+  }).join("");
+  setActiveSideLink(currentView, currentWeek);
+}
+
+function toggleSidebar(force) {
+  const sb = document.getElementById("sidebar");
+  const bd = document.getElementById("sidebarBackdrop");
+  const open = typeof force === "boolean" ? force : !sb.classList.contains("open");
+  sb.classList.toggle("open", open);
+  bd.classList.toggle("open", open);
+}
+
+/* ---------------- Dashboard ---------------- */
+
+function showDashboard() {
+  currentView = "dashboard";
+  toggleSidebar(false);
+  const state = loadState();
+  const passedQuizzes = CURRICULUM.filter(w => state.quizScores[w.week] && state.quizScores[w.week].passed).length;
+  const weeksDone = CURRICULUM.filter(w => weekProgress(w.week).done === SECTIONS.length).length;
+  const resumeWeek = state.lastWeek || 1;
+
+  contentEl().innerHTML = `
+    <div class="fade-in">
+      <h1 class="view-title">Dzień dobry! 👋</h1>
+      <p class="view-sub">Your Polish A1 journey — 12 weeks, 30 minutes a day.</p>
+
+      <div class="dash-stats">
+        <div class="dash-stat glass"><div class="num">⚡ ${state.xp}</div><div class="lbl">Total XP</div></div>
+        <div class="dash-stat glass"><div class="num">🔥 ${state.streak}</div><div class="lbl">Day streak</div></div>
+        <div class="dash-stat glass"><div class="num">📅 ${weeksDone}/12</div><div class="lbl">Weeks complete</div></div>
+        <div class="dash-stat glass"><div class="num">🏆 ${passedQuizzes}/12</div><div class="lbl">Quizzes passed</div></div>
+      </div>
+
+      <button class="btn btn-primary btn-lg" onclick="openWeek(${resumeWeek}, '${state.lastSection || "intro"}')">
+        ▶ Continue Week ${resumeWeek} — ${CURRICULUM[resumeWeek - 1].title}
+      </button>
+
+      <h2 class="view-title" style="font-size:1.3rem; margin-top:38px;">All 12 weeks</h2>
+      <div class="week-grid">
+        ${CURRICULUM.map(w => {
+          const p = weekProgress(w.week);
+          return `<button class="week-card glass" onclick="openWeek(${w.week})">
+            ${p.pct === 100 ? `<span class="wk-done-badge">✔</span>` : ""}
+            <div class="wk">Week ${w.week}</div>
+            <h3>${w.title}</h3>
+            <p>${w.subtitle}</p>
+            <div class="wk-progress"><span style="width:${p.pct}%"></span></div>
+          </button>`;
+        }).join("")}
+      </div>
+    </div>`;
+  setActiveSideLink("dashboard");
+  window.scrollTo({ top: 0 });
+}
+
+/* ---------------- Guide ---------------- */
+
+function showGuide() {
+  currentView = "guide";
+  toggleSidebar(false);
+  contentEl().innerHTML = `
+    <div class="fade-in">
+      <h1 class="view-title">🧭 How this curriculum works</h1>
+      <p class="view-sub">Designed for an English-speaking teacher starting from zero.</p>
+
+      <div class="guide-grid">
+        <div class="card glass">
+          <h3>Daily rhythm (30 minutes)</h3>
+          ${GUIDE.rhythm.map(r => `<div class="rhythm-row"><span class="rhythm-day">${r.day}</span><span class="rhythm-task">${r.task}</span></div>`).join("")}
+        </div>
+
+        <div class="card glass">
+          <h3>Pronunciation key used throughout</h3>
+          <ul class="pron-list">
+            ${GUIDE.pronunciation.map(p => `<li>${p}</li>`).join("")}
+          </ul>
+        </div>
+
+        <div class="teacher-note">
+          <b>As a teacher, you'll find this useful:</b> ${GUIDE.teacherNote}
+        </div>
+      </div>
+    </div>`;
+  setActiveSideLink("guide");
+  window.scrollTo({ top: 0 });
+}
+
+/* ---------------- Week view ---------------- */
+
+function openWeek(week, section) {
+  currentView = "week";
+  currentWeek = week;
+  currentSection = section || "intro";
+  updateState({ lastWeek: week, lastSection: currentSection });
+  toggleSidebar(false);
+  renderWeek();
+  window.scrollTo({ top: 0 });
+}
+
+function goToSection(section) {
+  currentSection = section;
+  updateState({ lastWeek: currentWeek, lastSection: section });
+  renderWeek();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function navSection(dir) {
+  const idx = SECTIONS.indexOf(currentSection);
+  const next = idx + dir;
+  if (next >= 0 && next < SECTIONS.length) {
+    goToSection(SECTIONS[next]);
+  } else if (next < 0 && currentWeek > 1) {
+    openWeek(currentWeek - 1, "summary");
+  } else if (next >= SECTIONS.length) {
+    if (currentWeek < CURRICULUM.length) {
+      openWeek(currentWeek + 1, "intro");
+    } else {
+      showCertificate();
+    }
+  }
+}
+
+function navWeek(dir) {
+  const target = currentWeek + dir;
+  if (target >= 1 && target <= CURRICULUM.length) openWeek(target, "intro");
+}
+
+function renderWeek() {
+  const data = CURRICULUM[currentWeek - 1];
+  const isFirst = currentWeek === 1 && currentSection === "intro";
+  const isLast = currentWeek === CURRICULUM.length && currentSection === "summary";
+
+  contentEl().innerHTML = `
+    <div class="fade-in">
+      <header class="week-header">
+        <div class="week-eyebrow">Week ${data.week} of 12</div>
+        <h1 class="view-title">${data.title} <span style="color:var(--ink-3); font-weight:600;">· ${data.subtitle}</span></h1>
+        <div class="week-goal"><b>🎯 Goal:</b> ${data.goal}</div>
+      </header>
+
+      <nav class="section-tabs glass" aria-label="Week sections">
+        ${SECTIONS.map(s => `
+          <button class="tab ${s === currentSection ? "active" : ""}" onclick="goToSection('${s}')">
+            ${SECTION_ICONS[s]} ${SECTION_LABELS[s]}
+            ${isSectionDone(data.week, s) ? `<span class="tick">✔</span>` : ""}
+          </button>`).join("")}
+      </nav>
+
+      <div class="section-body" id="sectionBody"></div>
+
+      <div class="section-nav">
+        <button class="btn btn-ghost" onclick="navSection(-1)" ${isFirst ? "disabled" : ""}>← Previous</button>
+        <div class="spacer"></div>
+        ${currentSection !== "quiz" ? `<button class="btn btn-green" onclick="completeAndNext()">${isLast ? "Finish course 🎓" : "Complete & continue →"}</button>` : ""}
+        <button class="btn btn-ghost" onclick="navSection(1)" ${isLast ? "disabled" : ""}>Next →</button>
+      </div>
+      <div class="kbd-hint">Tip: <kbd>←</kbd> <kbd>→</kbd> to move between sections · <kbd>Shift</kbd>+<kbd>←</kbd>/<kbd>→</kbd> between weeks · <kbd>F</kbd> flashcards</div>
+    </div>`;
+
+  renderSectionBody(data);
+  setActiveSideLink("week", currentWeek);
+}
+
+function completeAndNext() {
+  markSectionDone(currentWeek, currentSection);
+  const state = loadState();
+  const allDone = CURRICULUM.every(w => weekProgress(w.week).done === SECTIONS.length);
+  if (currentWeek === CURRICULUM.length && currentSection === "summary") {
+    if (allDone || (state.quizScores[12] && state.quizScores[12].passed)) {
+      showCertificate();
+      return;
+    }
+  }
+  navSection(1);
+}
+
+/* ---------------- Section renderers ---------------- */
+
+function renderSectionBody(data) {
+  const body = document.getElementById("sectionBody");
+  switch (currentSection) {
+    case "intro": body.innerHTML = renderIntro(data); break;
+    case "vocab": body.innerHTML = renderVocab(data); break;
+    case "grammar": body.innerHTML = renderGrammar(data); attachChecklist(data); break;
+    case "dialogue": body.innerHTML = renderDialogue(data); break;
+    case "practice": body.innerHTML = renderPractice(data); break;
+    case "quiz": body.innerHTML = `<div id="quizArea"></div>`; renderQuizIntro(data.week); break;
+    case "summary": body.innerHTML = renderSummary(data); break;
+  }
+}
+
+function escAttr(str) {
+  return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+}
+
+function renderIntro(data) {
+  return `
+    <div class="card glass intro-card fade-in">
+      <div class="intro-icon">👋</div>
+      <h2 style="font-size:1.3rem; font-weight:800; margin-bottom:10px;">Welcome to Week ${data.week}</h2>
+      <p>${data.intro}</p>
+    </div>`;
+}
+
+function renderVocab(data) {
+  return `
+    <div class="fade-in">
+      <div class="vocab-toolbar">
+        <span class="vocab-hint">💡 Tap 🔊 on any phrase to hear it. Day 6 trick: cover the English column and translate from Polish, then reverse.</span>
+        <button class="btn btn-ghost btn-sm" onclick="openFlashcards(${data.week})">🃏 Study as flashcards</button>
+      </div>
+      <div class="vocab-table-wrap glass">
+        <table class="vocab-table">
+          <thead>
+            <tr><th>Polish</th><th>English</th><th>Pronunciation</th><th>Usage tips</th></tr>
+          </thead>
+          <tbody>
+            ${data.vocab.map(v => `
+              <tr>
+                <td class="vocab-pl">${v.pl}<button class="tts-btn" title="Listen" aria-label="Listen to ${escAttr(v.pl)}" onclick="speakPolish('${escAttr(v.pl)}', this)">🔊</button></td>
+                <td>${v.en}</td>
+                <td class="vocab-pron">${v.pron}</td>
+                <td class="vocab-tip">${v.tip}</td>
+              </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function renderGrammar(data) {
+  return `
+    <div class="card glass grammar-card fade-in">
+      <div class="exercise-count">Grammar focus · Day 3</div>
+      <h3>${data.grammar.title}</h3>
+      ${data.grammar.html}
+    </div>`;
+}
+
+function attachChecklist(data) {
+  const list = document.getElementById("selfAssessList");
+  if (!list || !data.grammar.checklist) return;
+  const state = loadState();
+  list.innerHTML = data.grammar.checklist.map((item, i) => {
+    const checked = !!state.selfAssess[i];
+    return `<label class="check-item ${checked ? "checked" : ""}">
+      <input type="checkbox" ${checked ? "checked" : ""} onchange="toggleSelfAssess(${i}, this)">
+      <span>${item}</span>
+    </label>`;
+  }).join("");
+}
+
+function toggleSelfAssess(index, input) {
+  const state = loadState();
+  state.selfAssess[index] = input.checked;
+  saveState(state);
+  input.closest(".check-item").classList.toggle("checked", input.checked);
+  const total = CURRICULUM[11].grammar.checklist.length;
+  const done = Object.values(state.selfAssess).filter(Boolean).length;
+  if (done === total) showToast("✅ Full self-assessment complete — you've reached A1!");
+}
+
+function renderDialogue(data) {
+  return `
+    <div class="fade-in">
+      <div class="dialogue-hint">💬 Mini-dialogue · Day 4 — read it aloud, record yourself, compare. Tap 🔊 to hear each line.</div>
+      <div class="dialogue-toolbar">
+        <button class="btn btn-ghost btn-sm" onclick="toggleDialogueEn(this)">🙈 Hide translations</button>
+        <button class="btn btn-ghost btn-sm" onclick="playWholeDialogue(${data.week})">▶ Play whole dialogue</button>
+      </div>
+      <div class="dialogue" id="dialogueBox">
+        ${data.dialogue.map((line, i) => `
+          <div class="bubble-row ${i % 2 === 0 ? "left" : "right"}" style="animation-delay:${i * 0.08}s">
+            <div class="bubble glass">
+              <div class="pl-line">${line.pl}<button class="tts-btn" title="Listen" aria-label="Listen to line" onclick="speakPolish('${escAttr(line.pl)}', this)">🔊</button></div>
+              <div class="en-line">${line.en}</div>
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+}
+
+function toggleDialogueEn(btn) {
+  const box = document.getElementById("dialogueBox");
+  const hidden = box.classList.toggle("hide-en");
+  btn.textContent = hidden ? "👀 Show translations" : "🙈 Hide translations";
+}
+
+function playWholeDialogue(week) {
+  if (!("speechSynthesis" in window)) {
+    showToast("Speech isn't supported in this browser.");
+    return;
+  }
+  const data = CURRICULUM[week - 1];
+  window.speechSynthesis.cancel();
+  data.dialogue.forEach(line => {
+    const utter = new SpeechSynthesisUtterance(line.pl);
+    utter.lang = "pl-PL";
+    utter.rate = 0.85;
+    if (polishVoice) utter.voice = polishVoice;
+    window.speechSynthesis.speak(utter);
+  });
+}
+
+/* ---------------- Practice engine ---------------- */
+
+function renderPractice(data) {
+  return `
+    <div class="fade-in">
+      <div class="dialogue-hint">✏️ Review · Day 6 — retrieval practice from this week's table, grammar and dialogue.</div>
+      ${data.practice.map((ex, i) => renderExercise(data.week, ex, i)).join("")}
+      <div class="practice-score" id="practiceScore">${practiceScoreText(data.week)}</div>
+    </div>`;
+}
+
+function practiceScoreText(week) {
+  const state = loadState();
+  const total = CURRICULUM[week - 1].practice.length;
+  const done = CURRICULUM[week - 1].practice.filter((_, i) => state.practiceDone[`${week}:${i}`]).length;
+  return done === total
+    ? `🎉 All ${total} exercises solved — Świetnie!`
+    : `Solved ${done} of ${total} exercises.`;
+}
+
+function renderExercise(week, ex, index) {
+  const solved = !!loadState().practiceDone[`${week}:${index}`];
+  if (ex.type === "choice") {
+    return `
+      <div class="card glass exercise" id="ex-${index}">
+        <div class="exercise-count">Exercise ${index + 1}${solved ? " · solved ✔" : ""}</div>
+        <div class="exercise-q">${ex.q}</div>
+        <div class="exercise-options">
+          ${ex.options.map((opt, i) => `<button class="exercise-option" onclick="checkChoice(${week}, ${index}, ${i}, this)">${opt}</button>`).join("")}
+        </div>
+        <div id="ex-fb-${index}"></div>
+      </div>`;
+  }
+  // typed answer
+  return `
+    <div class="card glass exercise" id="ex-${index}">
+      <div class="exercise-count">Exercise ${index + 1}${solved ? " · solved ✔" : ""}</div>
+      <div class="exercise-q">${ex.q}</div>
+      <div class="type-answer-row">
+        <input type="text" class="type-input" id="ex-input-${index}" placeholder="Type in Polish…" autocomplete="off"
+          onkeydown="if(event.key==='Enter'){checkTyped(${week}, ${index})}">
+        <button class="btn btn-primary" onclick="checkTyped(${week}, ${index})">Check</button>
+        <button class="btn btn-ghost btn-sm" onclick="revealTyped(${week}, ${index})">Show answer</button>
+      </div>
+      <div class="pl-keys" aria-label="Polish characters">
+        ${["ą","ć","ę","ł","ń","ó","ś","ź","ż"].map(ch => `<button class="pl-key" onclick="insertChar(${index}, '${ch}')">${ch}</button>`).join("")}
+      </div>
+      <div id="ex-fb-${index}"></div>
+    </div>`;
+}
+
+function insertChar(index, ch) {
+  const input = document.getElementById(`ex-input-${index}`);
+  if (!input) return;
+  const start = input.selectionStart || input.value.length;
+  input.value = input.value.slice(0, start) + ch + input.value.slice(input.selectionEnd || start);
+  input.focus();
+  input.setSelectionRange(start + 1, start + 1);
+}
+
+function markPracticeDone(week, index) {
+  const state = loadState();
+  const key = `${week}:${index}`;
+  const first = !state.practiceDone[key];
+  if (first) {
+    state.practiceDone[key] = true;
+    saveState(state);
+    addXP(5, "Exercise solved");
+  }
+  const scoreEl = document.getElementById("practiceScore");
+  if (scoreEl) scoreEl.textContent = practiceScoreText(week);
+  const allDone = CURRICULUM[week - 1].practice.every((_, i) => loadState().practiceDone[`${week}:${i}`]);
+  if (allDone) markSectionDone(week, "practice");
+}
+
+function checkChoice(week, index, choice, btn) {
+  const ex = CURRICULUM[week - 1].practice[index];
+  const container = btn.closest(".exercise");
+  const options = container.querySelectorAll(".exercise-option");
+  const fb = document.getElementById(`ex-fb-${index}`);
+  const correct = choice === ex.answer;
+
+  if (correct) {
+    options.forEach((o, i) => { o.disabled = true; if (i === ex.answer) o.classList.add("correct"); });
+    fb.innerHTML = `<div class="feedback ok">✔ Correct! ${ex.explain}</div>`;
+    markPracticeDone(week, index);
+  } else {
+    btn.classList.add("wrong");
+    btn.disabled = true;
+    fb.innerHTML = `<div class="feedback bad">✘ Try again — think it through!</div>`;
+  }
+}
+
+function checkTyped(week, index) {
+  const ex = CURRICULUM[week - 1].practice[index];
+  const input = document.getElementById(`ex-input-${index}`);
+  const fb = document.getElementById(`ex-fb-${index}`);
+  if (!input.value.trim()) { input.focus(); return; }
+
+  input.classList.remove("ok", "bad");
+  if (answersMatch(input.value, ex)) {
+    input.classList.add("ok");
+    input.disabled = true;
+    fb.innerHTML = `<div class="feedback ok">✔ Correct! <b>${ex.answer}</b> — ${ex.explain}</div>`;
+    markPracticeDone(week, index);
+  } else {
+    input.classList.add("bad");
+    fb.innerHTML = `<div class="feedback bad">✘ Not quite — check the vocabulary table and try again. (Diacritics are optional: “piec” counts for “pięć.”)</div>`;
+  }
+}
+
+function revealTyped(week, index) {
+  const ex = CURRICULUM[week - 1].practice[index];
+  const fb = document.getElementById(`ex-fb-${index}`);
+  fb.innerHTML = `<div class="feedback ok">💡 Answer: <b>${ex.answer}</b> — ${ex.explain}</div>`;
+}
+
+/* ---------------- Summary ---------------- */
+
+function renderSummary(data) {
+  return `
+    <div class="card glass fade-in">
+      <div class="exercise-count">Week ${data.week} · key takeaways</div>
+      <h3 style="font-size:1.25rem; font-weight:800;">What you can now do</h3>
+      <ul class="summary-list">
+        ${data.summary.map(s => `<li>${s}</li>`).join("")}
+      </ul>
+      ${data.week === 12 ? `<p style="margin-top:18px; color:var(--ink-2);"><b>Day 7:</b> Celebrate. <i>Wszystkiego najlepszego!</i> 🎉</p>` : ""}
+    </div>`;
+}
+
+/* ---------------- Certificate ---------------- */
+
+function showCertificate() {
+  currentView = "certificate";
+  toggleSidebar(false);
+  const state = loadState();
+  const passed = CURRICULUM.filter(w => state.quizScores[w.week] && state.quizScores[w.week].passed);
+  const allPassed = passed.length === CURRICULUM.length;
+
+  if (!allPassed) {
+    contentEl().innerHTML = `
+      <div class="fade-in">
+        <h1 class="view-title">🎓 Certificate</h1>
+        <p class="view-sub">Pass all 12 weekly quizzes (70%+) to unlock your A1 completion certificate.</p>
+        <div class="card glass cert-locked" style="margin-top:22px;">
+          <div class="lock-icon">🔒</div>
+          <h3 style="font-size:1.3rem; font-weight:800;">${passed.length} of 12 quizzes passed</h3>
+          <p>Keep going — every quiz you pass brings you closer. Powodzenia!</p>
+          <div class="cert-progress-list">
+            ${CURRICULUM.map(w => {
+              const q = state.quizScores[w.week];
+              return `<div class="cert-progress-item">
+                <span>Week ${w.week} — ${w.title}</span>
+                <span class="${q && q.passed ? "ok" : "todo"}">${q && q.passed ? `✔ ${q.best}/${q.total}` : "Not passed"}</span>
+              </div>`;
+            }).join("")}
+          </div>
+          <button class="btn btn-primary" onclick="openWeek(${firstUnpassedWeek()}, 'quiz')">Take the next quiz →</button>
+        </div>
+      </div>`;
+    setActiveSideLink("certificate");
+    return;
+  }
+
+  const avg = Math.round(
+    passed.reduce((sum, w) => {
+      const q = state.quizScores[w.week];
+      return sum + (q.best / q.total) * 100;
+    }, 0) / passed.length
+  );
+  const date = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+  contentEl().innerHTML = `
+    <div class="fade-in certificate-wrap">
+      <h1 class="view-title">🎓 Your certificate</h1>
+      <div class="cert-actions cert-name-input-row">
+        <input type="text" class="cert-name-input" id="certNameInput" placeholder="Type your name…" value="${state.name ? state.name.replace(/"/g, "&quot;") : ""}" oninput="updateCertName(this.value)">
+      </div>
+
+      <div class="certificate" id="certificate">
+        <div class="cert-flag" aria-hidden="true"><span></span><span></span></div>
+        <div class="cert-title">Certificate of Completion</div>
+        <div class="cert-course">Polish A1 — 12 Weeks</div>
+        <div class="cert-presented">Proudly presented to</div>
+        <div class="cert-name" id="certName">${state.name || "Your Name"}</div>
+        <p class="cert-body">for completing the full 12-week Polish A1 curriculum — greetings to the past tense — including all vocabulary, grammar, dialogues and weekly quizzes. <i>Uczysz się polskiego od trzech miesięcy — brawo!</i></p>
+        <div class="cert-meta">
+          <div><b>${avg}%</b>Average quiz score</div>
+          <div><b>${state.xp} XP</b>Experience earned</div>
+          <div><b>${date}</b>Date of completion</div>
+        </div>
+      </div>
+
+      <div class="cert-actions">
+        <button class="btn btn-gold btn-lg" onclick="window.print()">🖨️ Print / save as PDF</button>
+        <button class="btn btn-ghost" onclick="launchConfetti()">🎉 Celebrate again</button>
+      </div>
+
+      <div class="card glass next-steps">
+        <h3>After Week 12 — keeping momentum</h3>
+        <ul>
+          ${GUIDE.afterCourse.map(s => `<li>${s}</li>`).join("")}
+        </ul>
+        <p style="margin-top:14px; font-weight:800; color:var(--red);">Powodzenia! 🇵🇱</p>
+      </div>
+    </div>`;
+  setActiveSideLink("certificate");
+  launchConfetti();
+  window.scrollTo({ top: 0 });
+}
+
+function firstUnpassedWeek() {
+  const state = loadState();
+  const w = CURRICULUM.find(w => !(state.quizScores[w.week] && state.quizScores[w.week].passed));
+  return w ? w.week : 1;
+}
+
+function updateCertName(value) {
+  updateState({ name: value });
+  const el = document.getElementById("certName");
+  if (el) el.textContent = value || "Your Name";
+}
+
+function launchConfetti() {
+  const colors = ["#d7263d", "#f2b705", "#23b26d", "#2f7fd1", "#ffffff"];
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = 2.2 + Math.random() * 2 + "s";
+    piece.style.animationDelay = Math.random() * 0.8 + "s";
+    piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "3px";
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5200);
+  }
+}
+
+/* ---------------- Search ---------------- */
+
+const SEARCH_INDEX = [];
+CURRICULUM.forEach(w => {
+  w.vocab.forEach(v => {
+    SEARCH_INDEX.push({
+      week: w.week,
+      pl: v.pl,
+      en: v.en,
+      pron: v.pron,
+      norm: normalizeAnswer(v.pl + " " + v.en + " " + v.pron)
+    });
+  });
+});
+
+function runSearch(query) {
+  const box = document.getElementById("searchResults");
+  const q = normalizeAnswer(query);
+  if (!q || q.length < 2) {
+    box.classList.remove("open");
+    box.innerHTML = "";
+    return;
+  }
+  const hits = SEARCH_INDEX.filter(item => item.norm.includes(q)).slice(0, 12);
+  box.innerHTML = hits.length
+    ? hits.map(h => `
+        <button class="search-result" onclick="jumpToVocab(${h.week}, '${escAttr(h.pl)}')">
+          <span class="sr-week">W${h.week}</span>
+          <span class="sr-text">
+            <div class="sr-pl">${h.pl}</div>
+            <div class="sr-en">${h.en} · <i>${h.pron}</i></div>
+          </span>
+          <span class="tts-btn" role="button" tabindex="0" onclick="event.stopPropagation(); speakPolish('${escAttr(h.pl)}', this)" onkeydown="if(event.key==='Enter'){event.stopPropagation(); speakPolish('${escAttr(h.pl)}', this)}">🔊</span>
+        </button>`).join("")
+    : `<div class="search-empty">No phrases found for “${query.replace(/</g, "&lt;")}” — try a Polish or English word.</div>`;
+  box.classList.add("open");
+}
+
+function jumpToVocab(week, pl) {
+  closeSearch();
+  openWeek(week, "vocab");
+  setTimeout(() => {
+    const rows = document.querySelectorAll(".vocab-table tbody tr");
+    rows.forEach(row => {
+      if (row.querySelector(".vocab-pl") && row.querySelector(".vocab-pl").textContent.includes(pl.replace(/\\'/g, "'"))) {
+        row.scrollIntoView({ behavior: "smooth", block: "center" });
+        row.style.background = "var(--red-soft)";
+        setTimeout(() => { row.style.background = ""; }, 2200);
+      }
+    });
+  }, 120);
+}
+
+function closeSearch() {
+  const box = document.getElementById("searchResults");
+  const input = document.getElementById("searchInput");
+  if (box) { box.classList.remove("open"); box.innerHTML = ""; }
+  if (input) input.value = "";
+}
+
+/* ---------------- Flashcards ---------------- */
+
+let flashDeck = [];
+let flashIndex = 0;
+let flashFlipped = false;
+
+function openFlashcards(week) {
+  const modal = document.getElementById("flashModal");
+  const select = document.getElementById("flashWeekSelect");
+  select.innerHTML = `<option value="all">All weeks — every phrase (${SEARCH_INDEX.length} cards)</option>` +
+    CURRICULUM.map(w => `<option value="${w.week}">Week ${w.week} — ${w.title} (${w.vocab.length} cards)</option>`).join("");
+  select.value = week ? String(week) : (currentView === "week" ? String(currentWeek) : "all");
+  modal.classList.add("open");
+  loadFlashDeck();
+}
+
+function closeFlashcards() {
+  document.getElementById("flashModal").classList.remove("open");
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+}
+
+function loadFlashDeck() {
+  const val = document.getElementById("flashWeekSelect").value;
+  if (val === "all") {
+    flashDeck = [];
+    CURRICULUM.forEach(w => w.vocab.forEach(v => flashDeck.push({ ...v, week: w.week })));
+  } else {
+    const w = CURRICULUM[Number(val) - 1];
+    flashDeck = w.vocab.map(v => ({ ...v, week: w.week }));
+  }
+  // shuffle for retrieval practice
+  for (let i = flashDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashDeck[i], flashDeck[j]] = [flashDeck[j], flashDeck[i]];
+  }
+  flashIndex = 0;
+  flashFlipped = false;
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  const card = flashDeck[flashIndex];
+  const front = document.getElementById("flashFront");
+  const back = document.getElementById("flashBack");
+  const counter = document.getElementById("flashCounter");
+  const el = document.getElementById("flashcard");
+  if (!card) return;
+
+  el.classList.toggle("flipped", flashFlipped);
+  front.innerHTML = `
+    <div class="flash-word">${card.pl}</div>
+    <div class="flash-sub">Week ${card.week} · tap to flip · Space flips too</div>`;
+  back.innerHTML = `
+    <div class="flash-word">${card.en}</div>
+    <div class="flash-pron">${card.pron}</div>
+    <div class="flash-tip">${card.tip}</div>`;
+  counter.textContent = `Card ${flashIndex + 1} of ${flashDeck.length}`;
+}
+
+function flipFlashcard() {
+  flashFlipped = !flashFlipped;
+  document.getElementById("flashcard").classList.toggle("flipped", flashFlipped);
+}
+
+function nextFlashcard() {
+  flashIndex = (flashIndex + 1) % flashDeck.length;
+  flashFlipped = false;
+  renderFlashcard();
+}
+
+function prevFlashcard() {
+  flashIndex = (flashIndex - 1 + flashDeck.length) % flashDeck.length;
+  flashFlipped = false;
+  renderFlashcard();
+}
+
+function speakCurrentFlash() {
+  const card = flashDeck[flashIndex];
+  if (card) speakPolish(card.pl);
+}
+
+/* ---------------- Shortcuts modal ---------------- */
+
+function openShortcuts() {
+  document.getElementById("shortcutModal").classList.add("open");
+}
+function closeShortcuts() {
+  document.getElementById("shortcutModal").classList.remove("open");
+}
+
+/* ---------------- Keyboard shortcuts ---------------- */
+
+document.addEventListener("keydown", (e) => {
+  const flashOpen = document.getElementById("flashModal").classList.contains("open");
+  const shortcutsOpen = document.getElementById("shortcutModal").classList.contains("open");
+  const typing = ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName);
+
+  if (e.key === "Escape") {
+    if (flashOpen) { closeFlashcards(); return; }
+    if (shortcutsOpen) { closeShortcuts(); return; }
+    closeSearch();
+    if (typing) document.activeElement.blur();
+    return;
+  }
+
+  if (typing) return;
+
+  if (flashOpen) {
+    if (e.key === " ") { e.preventDefault(); flipFlashcard(); }
+    if (e.key === "ArrowRight") nextFlashcard();
+    if (e.key === "ArrowLeft") prevFlashcard();
+    return;
+  }
+
+  const appActive = document.getElementById("app").classList.contains("active");
+  if (!appActive) return;
+
+  switch (e.key) {
+    case "/":
+      e.preventDefault();
+      document.getElementById("searchInput").focus();
+      break;
+    case "ArrowRight":
+      if (currentView === "week") { e.shiftKey ? navWeek(1) : navSection(1); }
+      break;
+    case "ArrowLeft":
+      if (currentView === "week") { e.shiftKey ? navWeek(-1) : navSection(-1); }
+      break;
+    case "f": case "F":
+      openFlashcards();
+      break;
+    case "d": case "D":
+      toggleTheme();
+      break;
+    case "h": case "H":
+      showDashboard();
+      break;
+    case "?":
+      openShortcuts();
+      break;
+  }
+});
+
+/* ---------------- Wire up search & modals ---------------- */
+
+document.getElementById("searchInput").addEventListener("input", (e) => runSearch(e.target.value));
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".search-wrap")) {
+    const box = document.getElementById("searchResults");
+    if (box) box.classList.remove("open");
+  }
+});
+document.getElementById("flashModal").addEventListener("click", (e) => {
+  if (e.target.id === "flashModal") closeFlashcards();
+});
+document.getElementById("shortcutModal").addEventListener("click", (e) => {
+  if (e.target.id === "shortcutModal") closeShortcuts();
+});
+document.getElementById("landingThemeBtn").addEventListener("click", toggleTheme);
+
+/* ---------------- Boot ---------------- */
+
+(function init() {
+  const state = loadState();
+  applyTheme(state.theme);
+  updateStatsBar();
+
+  if (state.started) {
+    // Returning learner: skip the landing page, resume where they left off
+    document.getElementById("landing").classList.add("hidden");
+    document.getElementById("app").classList.add("active");
+    touchStreak();
+    updateStatsBar();
+    refreshSidebar();
+    updateGlobalProgress();
+    showDashboard();
+  }
+})();
+
+</script>
+</body>
+</html>

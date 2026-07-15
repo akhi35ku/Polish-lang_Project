@@ -34,6 +34,9 @@ export default function Navbar() {
           <Link to="/support" className="btn-small hidden sm:inline-flex">Support</Link>
           {user ? (
             <>
+              {user.role !== 'ADMIN' && (
+                <Link to="/learn" className="btn-small hidden sm:inline-flex">🇵🇱 Learn</Link>
+              )}
               <Link to={user.role === 'ADMIN' ? '/admin/dashboard' : '/dashboard'} className="btn-small">
                 {user.role === 'ADMIN' ? 'Admin' : 'Dashboard'}
               </Link>
